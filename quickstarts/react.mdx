@@ -7,7 +7,7 @@ Use `@kicbac/react` when your backend is not Next.js but you still want the host
 
 ## Prerequisites
 
-- A browser build that can expose `VITE_KICBAC_TOKENIZATION_KEY` or an equivalent public tokenization key.
+- Your public tokenization key as `VITE_KICBAC_TOKENIZATION_KEY` (see [Get your API keys](/credentials)).
 - A server endpoint that accepts `{ token, amount, currency, metadata }` and charges with the server SDK.
 
 <Steps>
@@ -64,3 +64,24 @@ export async function charge(body: { token: string }) {
 
   </Step>
 </Steps>
+
+<Note>
+  Run your dev server and submit test card `4111 1111 1111 1111` (any future expiry and CVV). `49.99` is approved; `0.99` is declined. See [test mode](/guides/test-mode).
+</Note>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Component reference" icon="component" href="/sdk/react">
+    Props, hooks, and the headless `usePaymentForm`.
+  </Card>
+  <Card title="Theme the form" icon="palette" href="/ui/themes">
+    Match the form to your brand.
+  </Card>
+  <Card title="Handle errors" icon="list-checks" href="/guides/error-handling">
+    Approvals, declines, and load failures.
+  </Card>
+  <Card title="Verify webhooks" icon="webhook" href="/guides/webhooks">
+    React to settlement and dispute events.
+  </Card>
+</Columns>

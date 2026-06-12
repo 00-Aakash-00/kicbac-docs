@@ -1,14 +1,14 @@
 ---
 title: "Node quickstart"
-description: "Charge a Collect.js payment token with the Kicbac Node SDK."
+description: "Charge a Kicbac payment token with the Kicbac Node SDK."
 ---
 
 Use the `kicbac` package on servers, workers, and other Node 20+ runtimes.
 
 ## Prerequisites
 
-- `KICBAC_SECURITY_KEY` set in the server environment.
-- A `payment_token` from Collect.js or a stored Customer Vault ID.
+- `KICBAC_SECURITY_KEY` set in the server environment (see [Get your API keys](/credentials)).
+- A `payment_token` to charge. Your browser app produces one with [Kicbac.js hosted fields](/quickstarts/react); for server-only testing, use the test token `00000000-000000-000000-000000000000`.
 
 <Steps>
   <Step title="Install the package">
@@ -64,4 +64,33 @@ try {
 ```
 
   </Step>
+  <Step title="Run it">
+
+Save the first snippet as `charge.ts` and run it with your `KICBAC_SECURITY_KEY` set:
+
+```bash
+pnpm add -D tsx
+pnpm tsx charge.ts
+```
+
+`49.99` is approved in test mode; `0.99` is declined. See [test mode](/guides/test-mode) for more.
+
+  </Step>
 </Steps>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Handle declines and errors" icon="list-checks" href="/guides/error-handling">
+    The full result model: approvals, typed declines, thrown errors.
+  </Card>
+  <Card title="Verify webhooks" icon="webhook" href="/guides/webhooks">
+    Confirm settlement and disputes from signed events.
+  </Card>
+  <Card title="Save cards" icon="wallet-cards" href="/guides/save-cards">
+    Vault a card and charge it again later.
+  </Card>
+  <Card title="Node SDK reference" icon="book" href="/sdk/node">
+    Every resource and method.
+  </Card>
+</Columns>

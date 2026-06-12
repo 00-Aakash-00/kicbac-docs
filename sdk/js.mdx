@@ -1,6 +1,6 @@
 ---
 title: "Browser JS SDK"
-description: "Use `@kicbac/js` to load Collect.js and create hosted-field tokenization sessions."
+description: "Use `@kicbac/js` to load Kicbac.js and create hosted-field tokenization sessions."
 ---
 
 Install:
@@ -9,14 +9,14 @@ Install:
 pnpm add @kicbac/js
 ```
 
-## Load Collect.js
+## Load Kicbac.js
 
 ```ts
 import { loadKicbac } from "@kicbac/js";
 
 const kicbac = await loadKicbac(import.meta.env.VITE_KICBAC_TOKENIZATION_KEY);
 if (!kicbac) {
-  throw new Error("Collect.js is only available in the browser.");
+  throw new Error("Kicbac.js is only available in the browser.");
 }
 ```
 
@@ -38,4 +38,4 @@ const token = await session.tokenize();
 console.log(token.token);
 ```
 
-Collect.js is a page-wide singleton. Destroy a session before mounting another one.
+Kicbac.js is a page-wide singleton. Destroy a session before mounting another one.

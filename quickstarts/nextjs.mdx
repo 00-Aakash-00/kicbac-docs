@@ -8,8 +8,9 @@ Use `@kicbac/nextjs` when you want the hosted payment form and a server-owned ch
 ## Prerequisites
 
 - Node 20.19 or newer.
-- `KICBAC_SECURITY_KEY` set on the server.
-- `NEXT_PUBLIC_KICBAC_TOKENIZATION_KEY` set for Collect.js.
+- Your Kicbac keys set as environment variables (see [Get your API keys](/credentials)):
+  - `NEXT_PUBLIC_KICBAC_TOKENIZATION_KEY` — public, used by the browser form.
+  - `KICBAC_SECURITY_KEY` — secret, used by the charge route.
 
 <Steps>
   <Step title="Install the package">
@@ -84,8 +85,37 @@ export default function CheckoutPage() {
 ```
 
   </Step>
+  <Step title="Run and test it">
+
+Start your app and open the checkout page:
+
+```bash
+pnpm dev
+# then visit http://localhost:3000/checkout
+```
+
+In test mode, fill the hosted fields with test card `4111 1111 1111 1111`, any future expiry, and any CVV, then submit. An amount of `49.99` is approved; `0.99` is declined. See [test mode](/guides/test-mode) for every test card and amount.
+
+  </Step>
 </Steps>
 
 <Warning>
-  The charge route accepts Collect.js tokens only. It rejects values that look like raw card numbers.
+  The charge route accepts Kicbac payment tokens only. It rejects values that look like raw card numbers, so raw card data can never reach your server.
 </Warning>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Handle every outcome" icon="list-checks" href="/guides/error-handling">
+    Approvals, declines, and errors in your route and form.
+  </Card>
+  <Card title="Receive webhooks" icon="webhook" href="/guides/webhooks">
+    Verify signatures and react to settlement and dispute events.
+  </Card>
+  <Card title="Save cards" icon="wallet-cards" href="/guides/save-cards">
+    Vault a card and charge it again later.
+  </Card>
+  <Card title="Subscriptions" icon="repeat" href="/guides/subscriptions">
+    Plans and recurring billing.
+  </Card>
+</Columns>

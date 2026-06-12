@@ -1,6 +1,6 @@
 # Documentation project instructions
 
-This Mintlify site documents Kicbac's developer platform. Keep API examples aligned to the SDK package READMEs and `openapi/kicbac.openapi.yaml`.
+This Mintlify site documents Kicbac's developer platform. Follow the root `AGENTS.md` API and security rules.
 
 ## Content rules
 

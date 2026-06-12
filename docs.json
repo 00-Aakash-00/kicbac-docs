@@ -15,7 +15,7 @@
     "href": "/"
   },
   "appearance": {
-    "default": "light"
+    "default": "system"
   },
   "fonts": {
     "family": "Inter",
@@ -59,9 +59,10 @@
         "icon": "book-open",
         "groups": [
           {
-            "group": "Start",
+            "group": "Start here",
             "pages": [
               "index",
+              "credentials",
               "quickstart",
               "quickstarts/nextjs",
               "quickstarts/react",
@@ -70,13 +71,18 @@
             ]
           },
           {
-            "group": "Workflows",
+            "group": "Build payments",
             "pages": [
               "guides/accept-a-payment",
               "guides/save-cards",
               "guides/subscriptions",
               "guides/ach",
-              "guides/webhooks",
+              "guides/webhooks"
+            ]
+          },
+          {
+            "group": "Test and debug",
+            "pages": [
               "guides/test-mode",
               "guides/error-handling"
             ]
@@ -127,7 +133,7 @@
         "tab": "UI Components",
         "icon": "panel-top",
         "pages": [
-          "ui/collect-js",
+          "ui/hosted-fields",
           "ui/react-components",
           "ui/themes"
         ]
@@ -189,10 +195,13 @@
     ],
     "primary": {
       "type": "button",
-      "label": "Get Started",
-      "href": "/quickstarts/nextjs"
+      "label": "Get started",
+      "href": "/credentials"
     }
   },
+  "redirects": [
+    { "source": "/ui/collect-js", "destination": "/ui/hosted-fields" }
+  ],
   "contextual": {
     "options": ["copy", "claude", "cursor", "mcp", "download-spec"],
     "display": "header"

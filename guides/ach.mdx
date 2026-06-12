@@ -3,7 +3,7 @@ title: "ACH"
 description: "Collect ACH details with hosted fields and charge an ACH token."
 ---
 
-Collect ACH account details with Collect.js hosted fields. Do not post `checkaccount` or `checkaba` from custom browser inputs.
+Collect ACH account details with Kicbac.js hosted fields. Do not post `checkaccount` or `checkaba` from custom browser inputs.
 
 ## Hosted ACH fields
 
@@ -12,7 +12,7 @@ import { loadKicbac } from "@kicbac/js";
 
 const kicbac = await loadKicbac(import.meta.env.VITE_KICBAC_TOKENIZATION_KEY);
 if (!kicbac) {
-  throw new Error("Collect.js is only available in the browser.");
+  throw new Error("Kicbac.js is only available in the browser.");
 }
 
 const session = kicbac.createFieldSession({

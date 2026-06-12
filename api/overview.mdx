@@ -1,6 +1,6 @@
 ---
 title: "API overview"
-description: "Kicbac exposes classic form-encoded gateway endpoints plus signed webhook deliveries."
+description: "Kicbac exposes form-encoded Payment API endpoints plus signed webhook deliveries."
 ---
 
 The API reference is generated from `openapi/kicbac.openapi.yaml`.
@@ -34,4 +34,4 @@ The gateway commonly returns HTTP 200. Application status is in `response`.
 
 ## Authentication
 
-Use `security_key` only on your server. Browser code uses a Collect.js tokenization key and sends `payment_token` to your server.
+Use `security_key` only on your server. Browser code uses a Kicbac.js tokenization key and sends `payment_token` to your server. See [Get your API keys](/credentials).

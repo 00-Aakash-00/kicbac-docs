@@ -1,6 +1,6 @@
 ---
 title: "Python quickstart"
-description: "Charge a Collect.js payment token with the Kicbac Python SDK."
+description: "Charge a Kicbac payment token with the Kicbac Python SDK."
 ---
 
 Use the `kicbac` Python package for sync or async server integrations.
@@ -8,8 +8,8 @@ Use the `kicbac` Python package for sync or async server integrations.
 ## Prerequisites
 
 - Python 3.10 or newer.
-- `KICBAC_SECURITY_KEY` set in the server environment.
-- A `payment_token` from Collect.js or a stored Customer Vault ID.
+- `KICBAC_SECURITY_KEY` set in the server environment (see [Get your API keys](/credentials)).
+- A `payment_token` to charge. Your browser app produces one with [Kicbac.js hosted fields](/quickstarts/react); for server-only testing, use the test token `00000000-000000-000000-000000000000`.
 
 <Steps>
   <Step title="Install the package">
@@ -60,4 +60,29 @@ asyncio.run(main())
 ```
 
   </Step>
+  <Step title="Run it">
+
+Save the first snippet as `charge.py` and run it with your `KICBAC_SECURITY_KEY` set:
+
+```bash
+python charge.py
+```
+
+`49.99` is approved in test mode; `0.99` is declined. See [test mode](/guides/test-mode) for more.
+
+  </Step>
 </Steps>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Handle declines and errors" icon="list-checks" href="/guides/error-handling">
+    The full result model: approvals, typed declines, raised errors.
+  </Card>
+  <Card title="Verify webhooks" icon="webhook" href="/guides/webhooks">
+    Confirm settlement and disputes from signed events.
+  </Card>
+  <Card title="Python SDK reference" icon="book" href="/sdk/python">
+    Sync and async clients, every resource and method.
+  </Card>
+</Columns>

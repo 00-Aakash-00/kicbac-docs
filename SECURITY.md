@@ -8,7 +8,7 @@ Open an issue for ordinary documentation bugs. For anything involving leaked cre
 
 ## Documentation guardrails
 
-- Show Collect.js tokenization, not raw card fields.
+- Show Kicbac.js tokenization, not raw card fields.
 - Use placeholders for keys and environment variables.
 - Use only public test values from `openapi/data/`.
 - Keep webhook verification byte-exact: HMAC-SHA256 over `nonce + "." + rawBody`.

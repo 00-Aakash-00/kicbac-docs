@@ -1,9 +1,9 @@
 ---
-title: "Collect.js hosted fields"
+title: "Kicbac.js hosted fields"
 description: "Use Kicbac hosted fields to collect card and ACH details without raw payment data touching your server."
 ---
 
-Collect.js injects iframe fields for card and ACH payment details. Kicbac's JS and React packages wrap Collect.js so you do not configure raw fields by hand in most integrations.
+Kicbac.js injects secure iframe fields for card and ACH details and returns a single-use `payment_token`. The `@kicbac/js` and `@kicbac/react` packages wrap Kicbac.js so you rarely configure fields by hand. Use this page if you are integrating with vanilla JavaScript or need low-level control.
 
 ## Supported inline fields
 
@@ -33,12 +33,15 @@ Collect.js injects iframe fields for card and ACH payment details. Kicbac's JS a
 
 ## Tokenization session
 
+Pass your public tokenization key to `loadKicbac()`. It returns `null` only during server-side rendering, and rejects if the key is missing, so always provide the key explicitly.
+
 ```ts
 import { loadKicbac } from "@kicbac/js";
 
-const kicbac = await loadKicbac();
+const kicbac = await loadKicbac(import.meta.env.VITE_KICBAC_TOKENIZATION_KEY);
 if (!kicbac) {
-  throw new Error("Collect.js is only available in the browser.");
+  // Server-side render: hosted fields only run in the browser.
+  throw new Error("Kicbac.js is only available in the browser.");
 }
 
 const session = kicbac.createFieldSession({
@@ -50,7 +53,7 @@ const session = kicbac.createFieldSession({
 });
 
 const response = await session.tokenize();
-console.log(response.token);
+console.log(response.token); // send this payment_token to your server
 ```
 
-Tokens are single-use and expire after 24 hours.
+Tokens are single-use and expire after 24 hours. Kicbac.js is a page-wide singleton — destroy a session before mounting another one.

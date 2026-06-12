@@ -16,66 +16,17 @@
   backdrop-filter: saturate(160%) blur(14px);
 }
 
-#navbar nav[aria-label="Main"] a[href="/quickstarts/nextjs"],
 #topbar-cta-button,
 tryit-button button,
 button[type="submit"] {
   border-radius: var(--kb-radius);
   background: var(--kb-gradient);
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff;
-  font-weight: 650;
-  box-shadow: 0 10px 24px rgba(20, 20, 66, 0.14);
-  text-shadow: 0 1px 1px rgba(20, 20, 66, 0.22);
   transition: transform 160ms var(--kb-ease), box-shadow 160ms var(--kb-ease), opacity 160ms ease;
 }
 
-#navbar nav[aria-label="Main"] a[href="/quickstarts/nextjs"] *,
-#navbar nav[aria-label="Main"] a[href="/quickstarts/nextjs"] svg,
-#navbar nav[aria-label="Main"] a[href="/quickstarts/nextjs"] path,
-#topbar-cta-button *,
-#topbar-cta-button svg,
-#topbar-cta-button path {
-  color: inherit !important;
-  stroke: currentColor !important;
-  -webkit-text-fill-color: currentColor;
-}
-
-#navbar nav[aria-label="Main"] a[href="/quickstarts/nextjs"]:focus-visible,
-#topbar-cta-button:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.92);
-  outline-offset: 3px;
-  box-shadow:
-    0 0 0 5px rgba(240, 74, 196, 0.2),
-    0 10px 24px rgba(20, 20, 66, 0.16);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  #navbar nav[aria-label="Main"] a[href="/quickstarts/nextjs"]:hover,
-  #topbar-cta-button:hover {
-    box-shadow: 0 12px 28px rgba(20, 20, 66, 0.18);
-  }
-}
-
-#navbar nav[aria-label="Main"] a[href="/quickstarts/nextjs"]:active,
 #topbar-cta-button:active,
 button[type="submit"]:active {
   transform: scale(0.98);
-}
-
-button[aria-label="Toggle assistant panel"] > svg {
-  display: none !important;
-}
-
-button[aria-label="Toggle assistant panel"]::before {
-  content: "";
-  display: block;
-  width: 1rem;
-  height: 1rem;
-  flex: 0 0 auto;
-  background: currentColor;
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7.9 20A9 9 0 1 0 4 16.1L2 22Z'/%3E%3C/svg%3E") center / contain no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7.9 20A9 9 0 1 0 4 16.1L2 22Z'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
 card,
