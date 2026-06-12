@@ -1,6 +1,8 @@
 # Dependencies and Mintlify cache
 node_modules/
 .mintlify/
+.agents/
+skills-lock.json
 
 # Build and caches
 .turbo/

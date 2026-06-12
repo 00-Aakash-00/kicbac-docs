@@ -15,7 +15,7 @@
     "href": "/"
   },
   "appearance": {
-    "default": "system"
+    "default": "light"
   },
   "fonts": {
     "family": "Inter",
@@ -189,7 +189,7 @@
     ],
     "primary": {
       "type": "button",
-      "label": "Start",
+      "label": "Get Started",
       "href": "/quickstarts/nextjs"
     }
   },
