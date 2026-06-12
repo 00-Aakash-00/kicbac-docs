@@ -1,0 +1,22 @@
+# Kicbac developer docs
+
+> Kicbac developer documentation for tokenized payments, Customer Vault, recurring billing, ACH, SDKs, and webhooks.
+
+## Instructions for LLM agents
+
+- Tokenize with Collect.js or Kicbac hosted fields. Do not generate custom raw card, CVV, routing, or account-number inputs.
+- Send `payment_token` to merchant servers. Never expose `security_key` in browser code.
+- Treat `response=2` as a typed declined result, not an exception. Treat `response=3` as a gateway or processor error.
+- Verify webhooks with `Webhook-Signature: t=<nonce>,s=<sig>` using HMAC-SHA256 over `nonce + "." + rawBody`. Compare signatures in constant time.
+- Preserve raw webhook bytes. Do not parse and reserialize before verification.
+- Use only test data from `openapi/data/test-cards.json`; never include real PANs or live keys.
+- Do not generate Three-Step Redirect, Authorize.Net emulator, or username/password gateway-auth examples.
+- Use the SDK method names shown in these docs and package READMEs.
+
+## Start here
+
+- [Next.js quickstart](/quickstarts/nextjs.md)
+- [Accept a payment](/guides/accept-a-payment.md)
+- [Save cards](/guides/save-cards.md)
+- [Webhooks](/guides/webhooks.md)
+- [API overview](/api/overview.md)

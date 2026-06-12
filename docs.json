@@ -1,0 +1,226 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "palm",
+  "name": "Kicbac",
+  "description": "Kicbac developer documentation for tokenized payments, Customer Vault, recurring billing, ACH, webhooks, and SDKs.",
+  "colors": {
+    "primary": "#f04ac4",
+    "light": "#f04ac4",
+    "dark": "#141442"
+  },
+  "favicon": "/images/brand/kicbac_favicon.png",
+  "logo": {
+    "light": "/images/brand/kicbac_logo_nav.svg",
+    "dark": "/images/brand/kicbac_logo_footer.svg",
+    "href": "/"
+  },
+  "appearance": {
+    "default": "system"
+  },
+  "fonts": {
+    "family": "Inter",
+    "heading": {
+      "family": "Inter",
+      "weight": 700
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 450
+    }
+  },
+  "icons": {
+    "library": "lucide"
+  },
+  "styling": {
+    "eyebrows": "breadcrumbs",
+    "codeblocks": "dark"
+  },
+  "api": {
+    "openapi": "openapi/kicbac.openapi.yaml",
+    "playground": {
+      "display": "interactive",
+      "proxy": false,
+      "credentials": false
+    },
+    "params": {
+      "expanded": "closed"
+    },
+    "examples": {
+      "languages": ["javascript", "python", "curl"],
+      "defaults": "required",
+      "prefill": true
+    },
+    "url": "full"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "icon": "book-open",
+        "groups": [
+          {
+            "group": "Start",
+            "pages": [
+              "index",
+              "quickstart",
+              "quickstarts/nextjs",
+              "quickstarts/react",
+              "quickstarts/node",
+              "quickstarts/python"
+            ]
+          },
+          {
+            "group": "Workflows",
+            "pages": [
+              "guides/accept-a-payment",
+              "guides/save-cards",
+              "guides/subscriptions",
+              "guides/ach",
+              "guides/webhooks",
+              "guides/test-mode",
+              "guides/error-handling"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "icon": "square-terminal",
+        "openapi": "openapi/kicbac.openapi.yaml",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["api/overview"]
+          },
+          {
+            "group": "Gateway",
+            "pages": [
+              "POST /api/transact.php",
+              "POST /api/query.php"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "SDKs",
+        "icon": "code",
+        "groups": [
+          {
+            "group": "Server",
+            "pages": [
+              "sdk/node",
+              "sdk/python",
+              "sdk/nextjs"
+            ]
+          },
+          {
+            "group": "Browser and UI",
+            "pages": [
+              "sdk/react",
+              "sdk/js",
+              "sdk/themes"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "UI Components",
+        "icon": "panel-top",
+        "pages": [
+          "ui/collect-js",
+          "ui/react-components",
+          "ui/themes"
+        ]
+      },
+      {
+        "tab": "Webhooks",
+        "icon": "webhook",
+        "groups": [
+          {
+            "group": "Verify and receive",
+            "pages": ["webhooks/overview"]
+          },
+          {
+            "group": "Transaction events",
+            "pages": [
+              "webhooks/transaction-sale-success",
+              "webhooks/transaction-check-status-settle",
+              "webhooks/transaction-check-status-return",
+              "webhooks/transaction-check-status-latereturn"
+            ]
+          },
+          {
+            "group": "Recurring events",
+            "pages": [
+              "webhooks/recurring-plan-add",
+              "webhooks/recurring-plan-update",
+              "webhooks/recurring-plan-delete",
+              "webhooks/recurring-subscription-add",
+              "webhooks/recurring-subscription-update",
+              "webhooks/recurring-subscription-delete"
+            ]
+          },
+          {
+            "group": "Operations events",
+            "pages": [
+              "webhooks/settlement-batch-complete",
+              "webhooks/settlement-batch-failure",
+              "webhooks/chargeback-batch-complete",
+              "webhooks/acu-summary-automaticallyupdated",
+              "webhooks/acu-summary-closedaccount",
+              "webhooks/acu-summary-contactcustomer"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Changelog",
+        "icon": "list-checks",
+        "pages": ["changelog"]
+      }
+    ]
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Kicbac",
+        "href": "https://kicbac.com"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Start",
+      "href": "/quickstarts/nextjs"
+    }
+  },
+  "contextual": {
+    "options": ["copy", "claude", "cursor", "mcp", "download-spec"],
+    "display": "header"
+  },
+  "footer": {
+    "links": [
+      {
+        "header": "Build",
+        "items": [
+          { "label": "Next.js quickstart", "href": "/quickstarts/nextjs" },
+          { "label": "API reference", "href": "/api/overview" },
+          { "label": "Webhooks", "href": "/webhooks/overview" }
+        ]
+      },
+      {
+        "header": "Safety",
+        "items": [
+          { "label": "Test mode", "href": "/guides/test-mode" },
+          { "label": "Error handling", "href": "/guides/error-handling" },
+          { "label": "Webhook verification", "href": "/guides/webhooks" }
+        ]
+      }
+    ]
+  },
+  "search": {
+    "prompt": "Search Kicbac docs"
+  },
+  "metadata": {
+    "timestamp": true
+  }
+}

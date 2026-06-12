@@ -1,0 +1,42 @@
+---
+title: "Kicbac developer platform"
+description: "Build tokenized payments, Customer Vault, recurring billing, ACH, and signed webhooks with the Kicbac SDKs."
+---
+
+Kicbac wraps the NMI classic gateway behind SDKs and docs that keep browser payment data out of your servers. Start with Collect.js tokenization, send `payment_token` to your server, then use the Node, Next.js, or Python SDK to call the gateway.
+
+<Warning>
+  Never collect raw card numbers, CVV, routing numbers, or account numbers in custom inputs. Use Kicbac hosted fields or Collect.js and send only payment tokens to your server.
+</Warning>
+
+<Columns cols={2}>
+  <Card title="Next.js checkout" icon="rocket" href="/quickstarts/nextjs">
+    Add the hosted payment form and a server-owned charge route.
+  </Card>
+  <Card title="Accept a payment" icon="credit-card" href="/guides/accept-a-payment">
+    Tokenize in the browser, charge on the server, and handle declines.
+  </Card>
+  <Card title="Save cards" icon="wallet-cards" href="/guides/save-cards">
+    Vault cards and run CIT/MIT follow-up charges.
+  </Card>
+  <Card title="Verify webhooks" icon="webhook" href="/guides/webhooks">
+    Validate exact raw bytes with the `Webhook-Signature` header.
+  </Card>
+</Columns>
+
+## Core model
+
+<Steps>
+  <Step title="Collect a token">
+    Render Kicbac hosted fields in the browser. The browser receives a single-use `payment_token`.
+  </Step>
+  <Step title="Charge server-side">
+    Send the token to your server and call `transactions.sale` with your private `KICBAC_SECURITY_KEY`.
+  </Step>
+  <Step title="Treat declines as data">
+    Approved responses are `ok: true`. Declines are typed results, not thrown exceptions. Gateway errors throw.
+  </Step>
+  <Step title="Verify asynchronous events">
+    Webhooks are signed with HMAC-SHA256 over `nonce + "." + rawBody`; verify before parsing or mutating state.
+  </Step>
+</Steps>

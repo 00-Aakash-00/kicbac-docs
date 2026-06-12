@@ -1,0 +1,41 @@
+---
+title: "Browser JS SDK"
+description: "Use `@kicbac/js` to load Collect.js and create hosted-field tokenization sessions."
+---
+
+Install:
+
+```bash
+pnpm add @kicbac/js
+```
+
+## Load Collect.js
+
+```ts
+import { loadKicbac } from "@kicbac/js";
+
+const kicbac = await loadKicbac(import.meta.env.VITE_KICBAC_TOKENIZATION_KEY);
+if (!kicbac) {
+  throw new Error("Collect.js is only available in the browser.");
+}
+```
+
+## Create a card field session
+
+```ts
+const session = kicbac.createFieldSession({
+  fields: {
+    ccnumber: { selector: "#card-number", placeholder: "Card number" },
+    ccexp: { selector: "#card-expiry", placeholder: "MM / YY" },
+    cvv: { selector: "#card-cvv", placeholder: "CVV", display: "required" }
+  },
+  onChange: (_fields, isValid) => {
+    document.querySelector("button")?.toggleAttribute("disabled", !isValid);
+  }
+});
+
+const token = await session.tokenize();
+console.log(token.token);
+```
+
+Collect.js is a page-wide singleton. Destroy a session before mounting another one.

@@ -1,0 +1,38 @@
+---
+title: "transaction.check.status.settle"
+description: "Sent when an ACH check transaction settles."
+openapi: "openapi/kicbac.openapi.yaml webhook transaction.check.status.settle"
+---
+
+Event type: `transaction.check.status.settle`
+
+```json
+{
+  "event_id": "9b312dfd-3174-4748-9447-d63c8744305a",
+  "event_type": "transaction.check.status.settle",
+  "event_body": {
+    "merchant": { "id": "1234", "name": "Test Account" },
+    "features": { "is_test_mode": true },
+    "transaction_id": "1234560000",
+    "transaction_type": "ck",
+    "condition": "complete",
+    "processor_id": "ckprocessora",
+    "requested_amount": "54.04",
+    "check": {
+      "check_account": "123456****1234",
+      "check_aba": "123456789",
+      "check_name": "Fake Person",
+      "account_holder_type": "personal",
+      "account_type": "checking",
+      "sec_code": "WEB"
+    },
+    "action": {
+      "amount": "54.04",
+      "action_type": "settle",
+      "success": "1",
+      "response_text": "Paid",
+      "response_code": "100"
+    }
+  }
+}
+```

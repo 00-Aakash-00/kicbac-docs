@@ -1,0 +1,21 @@
+{
+  "name": "kicbac-docs",
+  "private": true,
+  "description": "Mintlify documentation for the Kicbac developer platform.",
+  "license": "MIT",
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "dev": "pnpm dlx mint dev",
+    "broken-links": "pnpm dlx mint broken-links",
+    "openapi-check": "pnpm dlx mint openapi-check openapi/kicbac.openapi.yaml",
+    "validate": "pnpm dlx mintlify validate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/00-Aakash-00/kicbac-docs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/00-Aakash-00/kicbac-docs/issues"
+  },
+  "homepage": "https://github.com/00-Aakash-00/kicbac-docs#readme"
+}

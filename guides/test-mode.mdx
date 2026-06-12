@@ -1,0 +1,33 @@
+---
+title: "Test mode"
+description: "Use Kicbac test tokens, cards, and amount simulations safely."
+---
+
+Use test credentials and test fixtures only. Never place live keys or real payment data in docs, examples, tests, or support tickets.
+
+## Collect.js test tokens
+
+<ResponseField name="card" type="payment_token">
+  `00000000-000000-000000-000000000000`
+</ResponseField>
+
+<ResponseField name="ach" type="payment_token">
+  `11111111-111111-111111-111111111111`
+</ResponseField>
+
+## Amount simulation
+
+| Amount | Expected result |
+| --- | --- |
+| `49.99` | Approved, `response=1`, `response_code=100` |
+| `1.00` | Approved, `response=1`, `response_code=100` |
+| `0.99` | Declined, `response=2`, `response_code=200` |
+| `0.05` | Declined, `response=2`, `response_code=200` |
+
+## Card fixture file
+
+The reusable card, ACH, AVS, CVV, response-code, and amount-simulation fixtures live in `openapi/data/`.
+
+<Warning>
+  Do not add real PANs, even expired ones. Use only the test values in `openapi/data/test-cards.json` and `todo.md` Appendix B.
+</Warning>

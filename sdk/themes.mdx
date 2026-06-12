@@ -1,0 +1,24 @@
+---
+title: "Themes"
+description: "Use `@kicbac/themes` for shared Kicbac appearance tokens."
+---
+
+Install:
+
+```bash
+pnpm add @kicbac/themes
+```
+
+Use the themes package when you want the same appearance object across browser SDKs.
+
+```ts
+import { createTheme, defaultTheme } from "@kicbac/themes";
+
+const appearance = createTheme({
+  variables: {
+    colorPrimary: "#f04ac4"
+  }
+});
+```
+
+The brand defaults use Inter, indigo `#141442`, accent `#f04ac4`, and the Kicbac CTA gradient.

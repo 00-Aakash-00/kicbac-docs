@@ -1,0 +1,25 @@
+# Dependencies and Mintlify cache
+node_modules/
+.mintlify/
+
+# Build and caches
+.turbo/
+coverage/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/

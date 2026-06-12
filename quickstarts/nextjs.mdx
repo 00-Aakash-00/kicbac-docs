@@ -1,0 +1,91 @@
+---
+title: "Next.js quickstart"
+description: "Add a tokenized Kicbac checkout to a Next.js App Router app in under five minutes."
+---
+
+Use `@kicbac/nextjs` when you want the hosted payment form and a server-owned charge endpoint in the same app.
+
+## Prerequisites
+
+- Node 20.19 or newer.
+- `KICBAC_SECURITY_KEY` set on the server.
+- `NEXT_PUBLIC_KICBAC_TOKENIZATION_KEY` set for Collect.js.
+
+<Steps>
+  <Step title="Install the package">
+
+```bash
+pnpm add @kicbac/nextjs
+```
+
+  </Step>
+  <Step title="Load the provider">
+
+```tsx app/providers.tsx
+"use client";
+
+import { KicbacProvider } from "@kicbac/nextjs";
+import "@kicbac/react/styles.css";
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  return <KicbacProvider>{children}</KicbacProvider>;
+}
+```
+
+```tsx app/layout.tsx
+import { Providers } from "./providers";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  );
+}
+```
+
+  </Step>
+  <Step title="Create the charge route">
+
+```ts app/api/kicbac/route.ts
+import { createKicbacRouteHandler } from "@kicbac/nextjs/server";
+
+export const { POST } = createKicbacRouteHandler({
+  amount: "49.99"
+});
+```
+
+The route ignores browser-submitted totals. Use `amountResolver` when the amount comes from a server-side cart lookup.
+
+  </Step>
+  <Step title="Render the checkout form">
+
+```tsx app/checkout/page.tsx
+"use client";
+
+import { KicbacPaymentForm } from "@kicbac/nextjs";
+
+export default function CheckoutPage() {
+  return (
+    <KicbacPaymentForm
+      amount="49.99"
+      endpoint="/api/kicbac"
+      onSuccess={(payment) => {
+        console.log("approved", payment.transactionId);
+      }}
+      onError={(error) => {
+        console.error(error.message);
+      }}
+    />
+  );
+}
+```
+
+  </Step>
+</Steps>
+
+<Warning>
+  The charge route accepts Collect.js tokens only. It rejects values that look like raw card numbers.
+</Warning>

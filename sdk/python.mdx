@@ -1,0 +1,50 @@
+---
+title: "Python SDK"
+description: "Use the Kicbac Python SDK for sync and async server integrations."
+---
+
+Install with pip:
+
+```bash
+python -m pip install kicbac
+```
+
+## Sync client
+
+```python
+from kicbac import Kicbac
+
+client = Kicbac()  # reads KICBAC_SECURITY_KEY
+
+result = client.transactions.sale(
+    amount="49.99",
+    payment_token="00000000-000000-000000-000000000000",
+)
+
+if result.ok:
+    print(result.transaction_id)
+else:
+    print(result.response_code, result.message)
+```
+
+## Async client
+
+```python
+from kicbac import AsyncKicbac
+
+async with AsyncKicbac() as client:
+    result = await client.transactions.sale(
+        amount="49.99",
+        payment_token="00000000-000000-000000-000000000000",
+    )
+```
+
+## Webhooks
+
+```python
+from kicbac import construct_event
+
+event = construct_event(raw_body, signature_header, signing_key="whsec_test_kicbac_8675309")
+```
+
+Declines return `ok=False`; they are not exceptions. `response=3` raises `APIError` subclasses.

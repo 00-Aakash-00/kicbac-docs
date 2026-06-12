@@ -1,0 +1,35 @@
+---
+title: "acu.summary.automaticallyupdated"
+description: "Sent when Automatic Card Updater automatically updates card details."
+openapi: "openapi/kicbac.openapi.yaml webhook acu.summary.automaticallyupdated"
+---
+
+Event type: `acu.summary.automaticallyupdated`
+
+```json
+{
+  "event_id": "7958c536-88f0-47f4-bb55-54575259a3be",
+  "event_type": "acu.summary.automaticallyupdated",
+  "event_body": {
+    "updated_date": "2022-08-22",
+    "merchant": { "id": 123456, "name": "Test Account" },
+    "cards_checked": {
+      "customer_vault": { "checked": 376, "updated": 4 },
+      "subscriptions": { "checked": 434, "updated": 3 }
+    },
+    "vault_count_updated_cards": 1,
+    "vault_updated_cards": [
+      {
+        "customer_vault_id": "308229500",
+        "billing_id": "1781228768",
+        "cc_number": "445701******0009",
+        "cc_exp": "01/50",
+        "first_name": "Bob",
+        "last_name": "Smith",
+        "email": "bsmith@example.com",
+        "phone": "+14801112222"
+      }
+    ]
+  }
+}
+```

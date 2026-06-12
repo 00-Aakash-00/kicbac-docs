@@ -1,0 +1,67 @@
+---
+title: "Error handling"
+description: "Handle Kicbac approvals, typed declines, gateway errors, and transport failures."
+---
+
+Kicbac SDKs separate customer declines from exceptional failures.
+
+## Node
+
+```ts errors.ts
+import Kicbac, { GatewayError, TimeoutError } from "kicbac";
+
+const kicbac = new Kicbac();
+
+try {
+  const result = await kicbac.transactions.sale({
+    amount: "0.99",
+    paymentToken: "00000000-000000-000000-000000000000"
+  });
+
+  if (!result.ok) {
+    console.log("declined", result.code, result.message);
+    return;
+  }
+
+  console.log("approved", result.transactionId);
+} catch (error) {
+  if (error instanceof GatewayError) {
+    console.error("gateway error", error.responseCode);
+  } else if (error instanceof TimeoutError) {
+    console.error("timeout before a response was parsed");
+  }
+  throw error;
+}
+```
+
+## Python
+
+```python errors.py
+from kicbac import Kicbac
+from kicbac.errors import APIError, APITimeoutError
+
+client = Kicbac()
+
+try:
+    result = client.transactions.sale(
+        amount="0.99",
+        payment_token="00000000-000000-000000-000000000000",
+    )
+    if not result.ok:
+        print("declined", result.response_code, result.message)
+    else:
+        print("approved", result.transaction_id)
+except APIError as error:
+    print("gateway error", error.response_code)
+    raise
+except APITimeoutError:
+    print("timeout before a response was parsed")
+    raise
+```
+
+## Retry policy
+
+- `query.php` calls may be retried by SDK policy.
+- `transact.php` POSTs are not retried after the request may have reached the gateway.
+- A pre-send connection failure can be retried because no gateway operation was created.
+- Use `dup_seconds` for gateway duplicate detection, not client-side blind retries.

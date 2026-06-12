@@ -1,0 +1,29 @@
+---
+title: "Appearance and themes"
+description: "Customize Kicbac payment UI using appearance variables and packaged themes."
+---
+
+Use appearance variables to align hosted fields and the payment form with your app.
+
+```tsx
+import { KicbacPaymentForm, KicbacProvider } from "@kicbac/react";
+import { createTheme } from "@kicbac/themes";
+
+const appearance = createTheme({
+  variables: {
+    colorPrimary: "#f04ac4",
+    colorText: "#141442",
+    gradientCta: "linear-gradient(280deg, #f8b345 -25%, #f23fe5 34.64%, #ad4ef8 62.57%, #6dacff 109%)"
+  }
+});
+
+export function Checkout() {
+  return (
+    <KicbacProvider appearance={appearance}>
+      <KicbacPaymentForm amount="49.99" endpoint="/api/pay" />
+    </KicbacProvider>
+  );
+}
+```
+
+Kicbac defaults use Inter, 10px field radii, 16px card radii, indigo text, and the pink accent.

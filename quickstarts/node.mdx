@@ -1,0 +1,67 @@
+---
+title: "Node quickstart"
+description: "Charge a Collect.js payment token with the Kicbac Node SDK."
+---
+
+Use the `kicbac` package on servers, workers, and other Node 20+ runtimes.
+
+## Prerequisites
+
+- `KICBAC_SECURITY_KEY` set in the server environment.
+- A `payment_token` from Collect.js or a stored Customer Vault ID.
+
+<Steps>
+  <Step title="Install the package">
+
+```bash
+pnpm add kicbac
+```
+
+  </Step>
+  <Step title="Charge a payment token">
+
+```ts charge.ts
+import Kicbac from "kicbac";
+
+const kicbac = new Kicbac();
+
+const result = await kicbac.transactions.sale({
+  amount: "49.99",
+  paymentToken: "00000000-000000-000000-000000000000",
+  orderId: "order_1001"
+});
+
+if (result.ok) {
+  console.log("approved", result.transactionId);
+} else {
+  console.log("declined", result.code, result.message);
+}
+```
+
+  </Step>
+  <Step title="Catch gateway errors">
+
+```ts errors.ts
+import Kicbac, { GatewayError } from "kicbac";
+
+const kicbac = new Kicbac();
+
+try {
+  const result = await kicbac.transactions.sale({
+    amount: "0.99",
+    paymentToken: "00000000-000000-000000-000000000000"
+  });
+
+  if (!result.ok) {
+    console.log("declined result", result.code);
+  }
+} catch (error) {
+  if (error instanceof GatewayError) {
+    console.error("gateway error", error.responseCode);
+  }
+  throw error;
+}
+```
+
+  </Step>
+</Steps>

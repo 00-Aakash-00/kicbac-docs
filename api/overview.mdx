@@ -1,0 +1,37 @@
+---
+title: "API overview"
+description: "Kicbac exposes classic form-encoded gateway endpoints plus signed webhook deliveries."
+---
+
+The API reference is generated from `openapi/kicbac.openapi.yaml`.
+
+## Endpoints
+
+- `POST /api/transact.php` handles sales, authorizations, captures, voids, refunds, Customer Vault, recurring billing, and invoicing.
+- `POST /api/query.php` returns XML reports and lookup results.
+
+Both gateway endpoints use `application/x-www-form-urlencoded`.
+
+<Warning>
+  `transact.php` POSTs are not idempotent. Do not auto-retry them after the request may have reached the gateway. Use `dup_seconds` for gateway duplicate checks.
+</Warning>
+
+## Response model
+
+The gateway commonly returns HTTP 200. Application status is in `response`.
+
+<ResponseField name="response=1" type="approved">
+  Treat as an approved result.
+</ResponseField>
+
+<ResponseField name="response=2" type="declined">
+  Treat as a typed decline result. The SDKs return `ok: false`; they do not throw for declines.
+</ResponseField>
+
+<ResponseField name="response=3" type="error">
+  Treat as a gateway or processor error. The SDKs throw a typed exception.
+</ResponseField>
+
+## Authentication
+
+Use `security_key` only on your server. Browser code uses a Collect.js tokenization key and sends `payment_token` to your server.

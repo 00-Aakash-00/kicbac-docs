@@ -1,0 +1,57 @@
+---
+title: "React payment components"
+description: "Use the Kicbac React provider, full payment form, or headless hosted fields."
+---
+
+`@kicbac/react` includes a full payment form and lower-level hooks for custom layouts.
+
+## Full form
+
+```tsx
+import { KicbacPaymentForm, KicbacProvider } from "@kicbac/react";
+import "@kicbac/react/styles.css";
+
+export function Checkout() {
+  return (
+    <KicbacProvider tokenizationKey={process.env.NEXT_PUBLIC_KICBAC_TOKENIZATION_KEY}>
+      <KicbacPaymentForm
+        amount="49.99"
+        endpoint="/api/pay"
+        collectCvv
+        buttonLabel="Pay securely"
+        onSuccess={(payment) => console.log(payment.transactionId)}
+      />
+    </KicbacProvider>
+  );
+}
+```
+
+## Headless fields
+
+```tsx
+import { KicbacProvider, usePaymentForm } from "@kicbac/react";
+import "@kicbac/react/styles.css";
+
+function HeadlessFields() {
+  const form = usePaymentForm({ amount: "49.99", endpoint: "/api/pay" });
+
+  return (
+    <form onSubmit={(event) => { event.preventDefault(); void form.submit(); }}>
+      <div {...form.getFieldProps("ccnumber")} />
+      <div {...form.getFieldProps("ccexp")} />
+      <div {...form.getFieldProps("cvv")} />
+      <button disabled={!form.isValid}>Pay</button>
+    </form>
+  );
+}
+
+export function HeadlessCheckout() {
+  return (
+    <KicbacProvider tokenizationKey={process.env.NEXT_PUBLIC_KICBAC_TOKENIZATION_KEY}>
+      <HeadlessFields />
+    </KicbacProvider>
+  );
+}
+```
+
+The headless hook still mounts Collect.js iframes. It does not expose raw card values.

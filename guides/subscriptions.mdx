@@ -1,0 +1,76 @@
+---
+title: "Subscriptions"
+description: "Create recurring plans and subscribe tokenized or vaulted payment methods."
+---
+
+The gateway has plan operations and subscription operations. Plans can be created and edited through the Payment API; plan deletion is a merchant-control-panel action, not an SDK method.
+
+## Create a plan
+
+```ts Node
+import Kicbac from "kicbac";
+
+const kicbac = new Kicbac();
+
+const plan = await kicbac.plans.create({
+  planId: "monthly-pro",
+  name: "Monthly Pro",
+  amount: "29.00",
+  payments: 0,
+  monthFrequency: 1,
+  dayOfMonth: 1
+});
+```
+
+## Create a subscription
+
+```ts Node
+const subscription = await kicbac.subscriptions.create({
+  planId: "monthly-pro",
+  customerVaultId: "123456789",
+  startDate: "20260701"
+});
+
+if (subscription.ok) {
+  console.log(subscription.subscriptionId);
+}
+```
+
+## Inline custom plan
+
+Use an inline plan when the schedule is specific to one subscription.
+
+```ts Node
+await kicbac.subscriptions.create({
+  paymentToken: "00000000-000000-000000-000000000000",
+  plan: {
+    amount: "12.00",
+    payments: 6,
+    monthFrequency: 1,
+    dayOfMonth: 15
+  }
+});
+```
+
+## Python
+
+```python Python
+from kicbac import Kicbac
+
+client = Kicbac()
+
+plan = client.plans.create(
+    "monthly-pro",
+    name="Monthly Pro",
+    amount="29.00",
+    payments=0,
+    month_frequency=1,
+    day_of_month=1,
+)
+
+subscription = client.subscriptions.create(
+    "monthly-pro",
+    customer_vault_id="123456789",
+    start_date="20260701",
+)
+```

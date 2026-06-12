@@ -1,0 +1,49 @@
+---
+title: "transaction.sale.success"
+description: "Sent when a sale transaction succeeds."
+openapi: "openapi/kicbac.openapi.yaml webhook transaction.sale.success"
+---
+
+Event type: `transaction.sale.success`
+
+```json
+{
+  "event_id": "9b312dfd-3174-4748-9447-d63c8744305a",
+  "event_type": "transaction.sale.success",
+  "event_body": {
+    "merchant": { "id": "1234", "name": "Test Account" },
+    "features": { "is_test_mode": true },
+    "transaction_id": "1234560000",
+    "transaction_type": "cc",
+    "condition": "pendingsettlement",
+    "processor_id": "ccprocessora",
+    "order_id": "12345678",
+    "currency": "USD",
+    "requested_amount": "54.04",
+    "authorization_code": "123456",
+    "billing_address": {
+      "first_name": "Jessica",
+      "last_name": "Jones",
+      "address_1": "123 Fake St.",
+      "city": "New York City",
+      "state": "NY",
+      "postal_code": "12345",
+      "country": "US",
+      "email": "someone@example.com"
+    },
+    "card": {
+      "cc_number": "411111******1111",
+      "cc_exp": "1022",
+      "avs_response": "N"
+    },
+    "action": {
+      "amount": "54.04",
+      "action_type": "sale",
+      "date": "20200406175755",
+      "success": "1",
+      "response_text": "SUCCESS",
+      "response_code": "100"
+    }
+  }
+}
+```

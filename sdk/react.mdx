@@ -1,0 +1,58 @@
+---
+title: "React SDK"
+description: "Use `@kicbac/react` for hosted card fields, payment forms, hooks, and styling."
+---
+
+Install:
+
+```bash
+pnpm add @kicbac/react
+```
+
+## Provider and form
+
+```tsx
+import { KicbacPaymentForm, KicbacProvider } from "@kicbac/react";
+import "@kicbac/react/styles.css";
+
+export function Checkout() {
+  return (
+    <KicbacProvider tokenizationKey={import.meta.env.VITE_KICBAC_TOKENIZATION_KEY}>
+      <KicbacPaymentForm
+        amount="49.99"
+        endpoint="/api/pay"
+        onSuccess={(payment) => console.log(payment.transactionId)}
+        onError={(error) => console.error(error.message)}
+      />
+    </KicbacProvider>
+  );
+}
+```
+
+## Headless hook
+
+```tsx
+import { KicbacProvider, usePaymentForm } from "@kicbac/react";
+import "@kicbac/react/styles.css";
+
+function HeadlessFields() {
+  const form = usePaymentForm({ amount: "49.99", endpoint: "/api/pay" });
+
+  return (
+    <form onSubmit={(event) => { event.preventDefault(); void form.submit(); }}>
+      <div {...form.getFieldProps("ccnumber", { placeholder: "Card number" })} />
+      <div {...form.getFieldProps("ccexp", { placeholder: "MM / YY" })} />
+      <div {...form.getFieldProps("cvv", { placeholder: "CVV" })} />
+      <button disabled={!form.isValid}>Pay</button>
+    </form>
+  );
+}
+
+export function HeadlessCheckout() {
+  return (
+    <KicbacProvider tokenizationKey={import.meta.env.VITE_KICBAC_TOKENIZATION_KEY}>
+      <HeadlessFields />
+    </KicbacProvider>
+  );
+}
+```

@@ -1,0 +1,35 @@
+---
+title: "transaction.check.status.return"
+description: "Sent when an ACH check transaction returns."
+openapi: "openapi/kicbac.openapi.yaml webhook transaction.check.status.return"
+---
+
+Event type: `transaction.check.status.return`
+
+```json
+{
+  "event_id": "9b312dfd-3174-4748-9447-d63c8744305a",
+  "event_type": "transaction.check.status.return",
+  "event_body": {
+    "merchant": { "id": "1234", "name": "Test Account" },
+    "features": { "is_test_mode": true },
+    "transaction_id": "1234560000",
+    "transaction_type": "ck",
+    "condition": "failed",
+    "requested_amount": "54.04",
+    "check": {
+      "check_account": "123456****1234",
+      "check_aba": "123456789",
+      "check_name": "Fake Person",
+      "sec_code": "WEB"
+    },
+    "action": {
+      "amount": "54.04",
+      "action_type": "check_return",
+      "success": "1",
+      "response_text": "Returned",
+      "response_code": "100"
+    }
+  }
+}
+```

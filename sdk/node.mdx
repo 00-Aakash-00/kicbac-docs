@@ -1,0 +1,64 @@
+---
+title: "Node SDK"
+description: "Use the `kicbac` server SDK for transactions, Customer Vault, recurring billing, invoices, Query API, and webhooks."
+---
+
+Install with pnpm:
+
+```bash
+pnpm add kicbac
+```
+
+## Client
+
+```ts
+import Kicbac from "kicbac";
+
+const kicbac = new Kicbac(); // reads KICBAC_SECURITY_KEY
+```
+
+## Transactions
+
+```ts
+const result = await kicbac.transactions.sale({
+  amount: "49.99",
+  paymentToken: "00000000-000000-000000-000000000000",
+  orderId: "order_1001"
+});
+
+if (result.ok) {
+  console.log(result.transactionId);
+} else {
+  console.log(result.code, result.message);
+}
+```
+
+Other transaction methods: `authorize`, `capture`, `void`, `refund`, `update`, and `completePartialPayment`.
+
+## Customer Vault
+
+```ts
+const vault = await kicbac.customers.create({
+  paymentToken: "00000000-000000-000000-000000000000"
+});
+
+if (!vault.ok) {
+  throw new Error(vault.message);
+}
+
+await kicbac.customers.charge({
+  customerVaultId: vault.customerVaultId!,
+  amount: "9.99",
+  initiatedBy: "merchant",
+  storedCredentialIndicator: "used",
+  initialTransactionId: "9876543210"
+});
+```
+
+## Webhooks
+
+```ts
+import { constructEvent } from "kicbac";
+
+const event = constructEvent(rawBody, signatureHeader, process.env.KICBAC_WEBHOOK_SIGNING_KEY!);
+```

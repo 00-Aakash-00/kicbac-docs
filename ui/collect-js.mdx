@@ -1,0 +1,56 @@
+---
+title: "Collect.js hosted fields"
+description: "Use Kicbac hosted fields to collect card and ACH details without raw payment data touching your server."
+---
+
+Collect.js injects iframe fields for card and ACH payment details. Kicbac's JS and React packages wrap Collect.js so you do not configure raw fields by hand in most integrations.
+
+## Supported inline fields
+
+<ResponseField name="ccnumber" type="card">
+  Card number hosted field.
+</ResponseField>
+
+<ResponseField name="ccexp" type="card">
+  Card expiration hosted field.
+</ResponseField>
+
+<ResponseField name="cvv" type="card">
+  Card security code hosted field.
+</ResponseField>
+
+<ResponseField name="checkname" type="ACH">
+  ACH account holder name hosted field.
+</ResponseField>
+
+<ResponseField name="checkaccount" type="ACH">
+  ACH account number hosted field.
+</ResponseField>
+
+<ResponseField name="checkaba" type="ACH">
+  ACH routing number hosted field.
+</ResponseField>
+
+## Tokenization session
+
+```ts
+import { loadKicbac } from "@kicbac/js";
+
+const kicbac = await loadKicbac();
+if (!kicbac) {
+  throw new Error("Collect.js is only available in the browser.");
+}
+
+const session = kicbac.createFieldSession({
+  fields: {
+    ccnumber: { selector: "#cc-number" },
+    ccexp: { selector: "#cc-exp" },
+    cvv: { selector: "#cc-cvv", display: "required" }
+  }
+});
+
+const response = await session.tokenize();
+console.log(response.token);
+```
+
+Tokens are single-use and expire after 24 hours.

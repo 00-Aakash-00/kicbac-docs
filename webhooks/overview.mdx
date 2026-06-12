@@ -1,0 +1,35 @@
+---
+title: "Webhook overview"
+description: "Receive, verify, dedupe, and route Kicbac webhook events."
+---
+
+Kicbac webhooks are HTTPS POST requests with JSON bodies and a `Webhook-Signature` header.
+
+## Verify first
+
+```ts
+import { constructEvent } from "kicbac";
+
+const event = constructEvent(rawBody, signatureHeader, signingKey);
+```
+
+The signature covers `nonce + "." + rawBody`, where `nonce` is the `t=` value from the header.
+
+## Event categories
+
+<Columns cols={2}>
+  <Card title="Transactions" icon="credit-card" href="/webhooks/transaction-sale-success">
+    Sales and ACH check status changes.
+  </Card>
+  <Card title="Recurring" icon="repeat" href="/webhooks/recurring-subscription-add">
+    Plan and subscription add/update/delete events.
+  </Card>
+  <Card title="Settlement" icon="landmark" href="/webhooks/settlement-batch-complete">
+    Batch completion and failure summaries.
+  </Card>
+  <Card title="Operations" icon="shield-check" href="/webhooks/chargeback-batch-complete">
+    Chargebacks and Automatic Card Updater summaries.
+  </Card>
+</Columns>
+
+Return HTTP 200 only after your endpoint accepts the event. Use `event_id` for dedupe.

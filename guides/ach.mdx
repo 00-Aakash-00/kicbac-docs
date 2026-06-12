@@ -1,0 +1,50 @@
+---
+title: "ACH"
+description: "Collect ACH details with hosted fields and charge an ACH token."
+---
+
+Collect ACH account details with Collect.js hosted fields. Do not post `checkaccount` or `checkaba` from custom browser inputs.
+
+## Hosted ACH fields
+
+```ts ach-fields.ts
+import { loadKicbac } from "@kicbac/js";
+
+const kicbac = await loadKicbac(import.meta.env.VITE_KICBAC_TOKENIZATION_KEY);
+if (!kicbac) {
+  throw new Error("Collect.js is only available in the browser.");
+}
+
+const session = kicbac.createFieldSession({
+  fields: {
+    checkname: { selector: "#check-name", placeholder: "Jane Doe" },
+    checkaba: { selector: "#routing-number", placeholder: "490000018" },
+    checkaccount: { selector: "#account-number", placeholder: "24413815" }
+  },
+  onReady: () => console.log("ACH fields ready"),
+  onChange: (_fields, isValid) => console.log({ isValid })
+});
+
+const response = await session.tokenize();
+await fetch("/api/ach", {
+  method: "POST",
+  headers: { "content-type": "application/json" },
+  body: JSON.stringify({ token: response.token })
+});
+```
+
+## Server charge
+
+```ts ach-charge.ts
+import Kicbac from "kicbac";
+
+const kicbac = new Kicbac();
+
+const result = await kicbac.transactions.sale({
+  amount: "19.99",
+  paymentToken: "11111111-111111-111111-111111111111",
+  orderId: "ach_order_1001"
+});
+```
+
+Use the ACH test token from `openapi/data/test-cards.json` in documentation and test-mode examples only.

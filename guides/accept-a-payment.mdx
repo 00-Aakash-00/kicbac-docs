@@ -1,0 +1,62 @@
+---
+title: "Accept a payment"
+description: "Tokenize payment details in the browser and charge the token on your server."
+---
+
+Use this flow for one-time card payments.
+
+<Steps>
+  <Step title="Collect hosted fields in the browser">
+
+```tsx CheckoutForm.tsx
+"use client";
+
+import { KicbacPaymentForm, KicbacProvider } from "@kicbac/react";
+import "@kicbac/react/styles.css";
+
+export function CheckoutForm() {
+  return (
+    <KicbacProvider tokenizationKey={process.env.NEXT_PUBLIC_KICBAC_TOKENIZATION_KEY}>
+      <KicbacPaymentForm
+        amount="49.99"
+        endpoint="/api/pay"
+        onSuccess={(payment) => console.log(payment.transactionId)}
+        onError={(error) => console.error(error.message)}
+      />
+    </KicbacProvider>
+  );
+}
+```
+
+  </Step>
+  <Step title="Charge the token server-side">
+
+```ts pay.ts
+import Kicbac from "kicbac";
+
+const kicbac = new Kicbac();
+
+export async function chargeToken(token: string) {
+  const result = await kicbac.transactions.sale({
+    amount: "49.99",
+    paymentToken: token,
+    orderId: "order_1001"
+  });
+
+  if (!result.ok) {
+    return { ok: false, status: 402, message: result.message };
+  }
+
+  return { ok: true, transactionId: result.transactionId };
+}
+```
+
+  </Step>
+  <Step title="Handle the three gateway outcomes">
+    `response=1` is approved. `response=2` is a typed decline result. `response=3` throws a gateway error in the SDK.
+  </Step>
+</Steps>
+
+<Warning>
+  Do not post raw `ccnumber`, `ccexp`, or `cvv` from a merchant server. Use `paymentToken` from Collect.js.
+</Warning>

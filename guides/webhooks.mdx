@@ -1,0 +1,62 @@
+---
+title: "Webhooks"
+description: "Verify Kicbac webhook signatures and respond safely."
+---
+
+Kicbac delivers webhook events to your HTTPS endpoint. Verify the signature before parsing the payload or mutating state.
+
+## Signature format
+
+`Webhook-Signature` has this shape:
+
+```text
+t=<nonce>,s=<hex_signature>
+```
+
+The signature is `HMAC-SHA256(signingKey, nonce + "." + rawBody)` over the exact raw request bytes.
+
+## Next.js handler
+
+```ts app/api/kicbac/webhook/route.ts
+import { kicbacWebhookHandler } from "@kicbac/nextjs/server";
+
+export const { POST } = kicbacWebhookHandler({
+  "transaction.sale.success": async (event) => {
+    console.log(event.event_id);
+  },
+  "*": async (event) => {
+    console.log("verified", event.event_type);
+  }
+});
+```
+
+The helper reads `request.arrayBuffer()` before verification so the signed bytes are preserved.
+
+## Node verifier
+
+```ts webhook.ts
+import { constructEvent } from "kicbac";
+
+export function handle(rawBody: Uint8Array, signature: string) {
+  const event = constructEvent(rawBody, signature, process.env.KICBAC_WEBHOOK_SIGNING_KEY!);
+  return event;
+}
+```
+
+## Python verifier
+
+```python webhook.py
+from kicbac import construct_event
+
+
+def handle(raw_body: bytes, signature: str):
+    return construct_event(raw_body, signature, signing_key="whsec_test_kicbac_8675309")
+```
+
+<Warning>
+  Do not verify a parsed JSON object. Pretty-printing, key reordering, Unicode normalization, or adding/removing a trailing newline changes the signed bytes.
+</Warning>
+
+## Delivery behavior
+
+Return HTTP 200 only after accepting the event. Non-200 responses are retried up to about 20 times over roughly 3 days. Dedupe by `event_id`; the `t=` value is a nonce, not a timestamp.

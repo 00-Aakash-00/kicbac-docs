@@ -1,0 +1,63 @@
+---
+title: "Python quickstart"
+description: "Charge a Collect.js payment token with the Kicbac Python SDK."
+---
+
+Use the `kicbac` Python package for sync or async server integrations.
+
+## Prerequisites
+
+- Python 3.10 or newer.
+- `KICBAC_SECURITY_KEY` set in the server environment.
+- A `payment_token` from Collect.js or a stored Customer Vault ID.
+
+<Steps>
+  <Step title="Install the package">
+
+```bash
+python -m pip install kicbac
+```
+
+  </Step>
+  <Step title="Charge a payment token">
+
+```python charge.py
+from kicbac import Kicbac
+
+client = Kicbac()
+
+result = client.transactions.sale(
+    amount="49.99",
+    payment_token="00000000-000000-000000-000000000000",
+    order_id="order_1001",
+)
+
+if result.ok:
+    print("approved", result.transaction_id)
+else:
+    print("declined", result.response_code, result.message)
+```
+
+  </Step>
+  <Step title="Use the async client">
+
+```python async_charge.py
+import asyncio
+
+from kicbac import AsyncKicbac
+
+
+async def main() -> None:
+    async with AsyncKicbac() as client:
+        result = await client.transactions.sale(
+            amount="49.99",
+            payment_token="00000000-000000-000000-000000000000",
+        )
+        print(result.ok)
+
+
+asyncio.run(main())
+```
+
+  </Step>
+</Steps>

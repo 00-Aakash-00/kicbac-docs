@@ -1,0 +1,66 @@
+---
+title: "React quickstart"
+description: "Render Kicbac hosted payment fields in any React app."
+---
+
+Use `@kicbac/react` when your backend is not Next.js but you still want the hosted payment form.
+
+## Prerequisites
+
+- A browser build that can expose `VITE_KICBAC_TOKENIZATION_KEY` or an equivalent public tokenization key.
+- A server endpoint that accepts `{ token, amount, currency, metadata }` and charges with the server SDK.
+
+<Steps>
+  <Step title="Install the package">
+
+```bash
+pnpm add @kicbac/react
+```
+
+  </Step>
+  <Step title="Wrap your app">
+
+```tsx src/App.tsx
+import { KicbacPaymentForm, KicbacProvider } from "@kicbac/react";
+import "@kicbac/react/styles.css";
+
+export function App() {
+  return (
+    <KicbacProvider tokenizationKey={import.meta.env.VITE_KICBAC_TOKENIZATION_KEY}>
+      <KicbacPaymentForm
+        amount="49.99"
+        endpoint="/api/pay"
+        onSuccess={(payment) => console.log(payment.transactionId)}
+        onError={(error) => console.error(error.message)}
+      />
+    </KicbacProvider>
+  );
+}
+```
+
+  </Step>
+  <Step title="Handle the token server-side">
+
+Your endpoint receives the tokenized payment data. Charge it with the Node SDK.
+
+```ts server/pay.ts
+import Kicbac from "kicbac";
+
+const kicbac = new Kicbac();
+
+export async function charge(body: { token: string }) {
+  const result = await kicbac.transactions.sale({
+    amount: "49.99",
+    paymentToken: body.token
+  });
+
+  if (!result.ok) {
+    return { status: 402, body: { ok: false, message: result.message } };
+  }
+
+  return { status: 200, body: { ok: true, transactionId: result.transactionId } };
+}
+```
+
+  </Step>
+</Steps>
