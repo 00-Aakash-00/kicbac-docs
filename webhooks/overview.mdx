@@ -1,9 +1,10 @@
 ---
-title: "Webhook overview"
-description: "Receive, verify, dedupe, and route Kicbac webhook events."
+title: "Kicbac Webhooks – Verify, Deduplicate, and Route Events"
+sidebarTitle: "Overview"
+description: "Learn how to receive, verify signatures, deduplicate by event_id, and route Kicbac webhook events to the right handler in your application."
 ---
 
-Kicbac webhooks are HTTPS POST requests with JSON bodies and a `Webhook-Signature` header.
+Kicbac webhooks are HTTPS POST requests with JSON bodies and a `Webhook-Signature` header. Every incoming request should be verified before you act on it, deduplicated using the `event_id` field, and then routed to the appropriate handler for your business logic.
 
 ## Verify first
 
@@ -13,7 +14,23 @@ import { constructEvent } from "kicbac";
 const event = constructEvent(rawBody, signatureHeader, signingKey);
 ```
 
-The signature covers `nonce + "." + rawBody`, where `nonce` is the `t=` value from the header.
+The signature covers `nonce + "." + rawBody`, where `nonce` is the `t=` value from the header. The full header format is `Webhook-Signature: t=<nonce>,s=<hex_signature>`. The signature itself is computed as `HMAC-SHA256(signingKey, nonce + '.' + rawBody)`.
+
+**Python:**
+
+```python
+event = construct_event(raw_body, sig, signing_key)
+```
+
+**Next.js:**
+
+```ts
+kicbacWebhookHandler({ "event.type": handler });
+```
+
+## Deduplicate by event\_id
+
+Each event payload includes an `event_id` UUID. Store processed IDs and skip duplicates — Kicbac retries delivery approximately 20 times over 3 days if your endpoint does not return HTTP 200.
 
 ## Event categories
 

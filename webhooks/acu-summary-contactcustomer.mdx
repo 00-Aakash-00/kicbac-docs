@@ -1,8 +1,11 @@
 ---
-title: "acu.summary.contactcustomer"
-description: "Sent when Automatic Card Updater says the customer should be contacted."
+title: "Kicbac acu.summary.contactcustomer Webhook Reference"
+sidebarTitle: "Contact Customer"
+description: "Fired when ACU recommends contacting the customer about their card. The event_body includes customer_vault_id, cc_number, cc_exp, and contact info."
 openapi: "openapi/kicbac.openapi.yaml webhook acu.summary.contactcustomer"
 ---
+
+The `acu.summary.contactcustomer` event fires when the Automatic Card Updater (ACU) service flags a vaulted card that requires direct customer follow-up — typically because the card could not be updated automatically and the issuer recommends verifying the new card details with the cardholder directly. Act promptly to avoid failed charges.
 
 Event type: `acu.summary.contactcustomer`
 

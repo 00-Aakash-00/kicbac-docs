@@ -1,9 +1,10 @@
 ---
-title: "Accept a payment"
-description: "Tokenize payment details in the browser and charge the token on your server."
+title: "Accept a Payment with Kicbac: Tokenize Cards and Charge"
+sidebarTitle: "Accept Payment"
+description: "Tokenize card details in the browser with hosted fields, then charge the payment token server-side using the Kicbac Node or Python SDK."
 ---
 
-Use this flow for one-time card payments.
+Kicbac keeps raw card data off your server entirely. The browser collects card details through Kicbac-hosted fields, which return a short-lived `paymentToken`. Your server passes that token to `kicbac.transactions.sale()` — no PAN, expiry, or CVV ever touches your infrastructure.
 
 <Steps>
   <Step title="Collect hosted fields in the browser">

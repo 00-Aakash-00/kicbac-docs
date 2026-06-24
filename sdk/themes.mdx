@@ -1,7 +1,10 @@
 ---
-title: "Themes"
-description: "Use `@kicbac/themes` for shared Kicbac appearance tokens."
+title: "Kicbac Themes SDK: Shared Appearance Tokens & Styles"
+sidebarTitle: "Themes"
+description: "Use @kicbac/themes to build a shared appearance object with brand colors, text styles, and CTA gradients across all Kicbac browser SDKs."
 ---
+
+The `@kicbac/themes` package provides a `createTheme` helper and a `defaultTheme` export so you can define your brand appearance once and pass the same object to any Kicbac browser SDK. The brand defaults use Inter, indigo `#141442`, accent `#f04ac4`, and the Kicbac CTA gradient.
 
 Install:
 
@@ -20,5 +23,3 @@ const appearance = createTheme({
   }
 });
 ```
-
-The brand defaults use Inter, indigo `#141442`, accent `#f04ac4`, and the Kicbac CTA gradient.

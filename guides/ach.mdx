@@ -1,9 +1,10 @@
 ---
-title: "ACH"
-description: "Collect ACH details with hosted fields and charge an ACH token."
+title: "Accept ACH Payments with Kicbac Hosted Bank Fields"
+sidebarTitle: "ACH"
+description: "Collect ACH bank details using Kicbac hosted fields, tokenize the account without exposing raw routing numbers, and charge the ACH token server-side."
 ---
 
-Collect ACH account details with Kicbac.js hosted fields. Do not post `checkaccount` or `checkaba` from custom browser inputs.
+Kicbac hosted fields handle ACH account collection entirely in the browser, so raw routing and account numbers never touch your server. The fields tokenize the entry and return a short-lived `paymentToken` you pass to your backend for the charge.
 
 ## Hosted ACH fields
 
@@ -47,4 +48,6 @@ const result = await kicbac.transactions.sale({
 });
 ```
 
-Use the ACH test token from `openapi/data/test-cards.json` in documentation and test-mode examples only.
+<Note>
+  The token `11111111-111111-111111-111111111111` is the ACH test token. Use it in test mode only — never in production.
+</Note>

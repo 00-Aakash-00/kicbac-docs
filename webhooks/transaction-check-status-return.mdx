@@ -1,8 +1,11 @@
 ---
-title: "transaction.check.status.return"
-description: "Sent when an ACH check transaction returns."
+title: "transaction.check.status.return – Webhook Reference"
+sidebarTitle: "check.return"
+description: "Fired when an ACH check is returned by the bank, typically for insufficient funds or invalid account. Contains transaction and return action details."
 openapi: "openapi/kicbac.openapi.yaml webhook transaction.check.status.return"
 ---
+
+The `transaction.check.status.return` event is sent when an ACH check transaction is returned by the customer's bank before settlement — common causes include insufficient funds (NSF), a closed account, or an invalid account number. Use this event to notify the customer, pause fulfilment, and initiate a retry or collections flow. Deduplicate by `event_id`.
 
 Event type: `transaction.check.status.return`
 

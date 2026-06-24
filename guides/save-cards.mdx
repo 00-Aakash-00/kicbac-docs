@@ -1,9 +1,10 @@
 ---
-title: "Save cards"
-description: "Store payment methods in Customer Vault and run CIT/MIT follow-up charges."
+title: "Save Cards with Customer Vault and Stored Credentials"
+sidebarTitle: "Save Cards"
+description: "Save a tokenized payment method to Kicbac Customer Vault, then run customer-initiated and merchant-initiated follow-up charges using stored credentials."
 ---
 
-Kicbac Customer Vault stores a tokenized payment method and returns a `customerVaultId`. Use that ID for future charges.
+Kicbac Customer Vault stores a tokenized payment method and returns a `customerVaultId`. Use that ID for future charges without requiring the customer to re-enter their card details. All follow-up merchant-initiated charges must reference the transaction ID from the original customer-initiated payment.
 
 ## Create a vault record
 

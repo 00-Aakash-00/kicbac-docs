@@ -203,7 +203,7 @@
     { "source": "/ui/collect-js", "destination": "/ui/hosted-fields" }
   ],
   "contextual": {
-    "options": ["copy", "claude", "cursor", "mcp", "download-spec"],
+    "options": ["copy", "claude", "cursor", "mcp"],
     "display": "header"
   },
   "footer": {

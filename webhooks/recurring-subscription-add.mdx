@@ -1,8 +1,11 @@
 ---
-title: "recurring.subscription.add"
-description: "Sent when a recurring subscription is created."
+title: "Kicbac recurring.subscription.add Webhook Reference"
+sidebarTitle: "Sub Added"
+description: "Fired when kicbac.subscriptions.create() succeeds. The event_body includes subscription_id, plan details, card data, and start date."
 openapi: "openapi/kicbac.openapi.yaml webhook recurring.subscription.add"
 ---
+
+The `recurring.subscription.add` event fires immediately after `kicbac.subscriptions.create()` succeeds and a customer is enrolled in a recurring plan. Use this webhook to provision access, send confirmation emails, or initialize subscription tracking in your own systems.
 
 Event type: `recurring.subscription.add`
 

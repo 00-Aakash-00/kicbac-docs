@@ -1,7 +1,10 @@
 ---
-title: "Python SDK"
-description: "Use the Kicbac Python SDK for sync and async server integrations."
+title: "Kicbac Python SDK: Sync, Async, and Webhook Support"
+sidebarTitle: "Python"
+description: "Install the kicbac Python package for sync and async gateway clients, transaction methods, Customer Vault operations, and webhook verification."
 ---
+
+The `kicbac` Python package provides both synchronous and asynchronous clients for the Kicbac payment gateway. Declines return `ok=False` and are not raised as exceptions; `response=3` errors raise `APIError` subclasses from `kicbac.errors`.
 
 Install with pip:
 

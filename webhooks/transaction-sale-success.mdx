@@ -1,8 +1,11 @@
 ---
-title: "transaction.sale.success"
-description: "Sent when a sale transaction succeeds."
+title: "transaction.sale.success – Webhook Event Reference"
+sidebarTitle: "sale.success"
+description: "Fired when a card sale is approved and enters pending settlement. Contains transaction ID, amount, billing address, card details, and authorization code."
 openapi: "openapi/kicbac.openapi.yaml webhook transaction.sale.success"
 ---
+
+The `transaction.sale.success` event is sent when a card sale transaction is approved by the processor and moves into pending settlement. Use this event to fulfil orders, update your database, and trigger any post-payment workflows. Deduplicate by `event_id` — Kicbac retries delivery approximately 20 times over 3 days.
 
 Event type: `transaction.sale.success`
 

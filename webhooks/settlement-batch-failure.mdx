@@ -1,8 +1,11 @@
 ---
-title: "settlement.batch.failure"
-description: "Sent when a settlement batch fails."
+title: "settlement.batch.failure Kicbac Webhook Event Info"
+sidebarTitle: "Batch Failed"
+description: "Fired when a daily settlement batch fails. The event_body includes batch_id, merchant details, and processor info for diagnosing the failure."
 openapi: "openapi/kicbac.openapi.yaml webhook settlement.batch.failure"
 ---
+
+The `settlement.batch.failure` event fires when a daily settlement batch encounters an error during processing. Treat this as a high-priority alert — unsettled transactions may require manual intervention or re-submission. The `event_body` identifies the processor involved to help route the issue to the correct support channel.
 
 Event type: `settlement.batch.failure`
 

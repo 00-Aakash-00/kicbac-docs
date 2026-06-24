@@ -1,8 +1,33 @@
 ---
-title: "Changelog"
-description: "Developer-platform documentation and example updates."
+title: "Kicbac Platform Changelog: SDK and API Updates"
+sidebarTitle: "Changelog"
+description: "Track Kicbac developer platform updates including SDK releases, API changes, new webhook events, and documentation improvements over time."
 ---
 
-<Update label="2026-06-12" description="Developer platform docs scaffold">
-  Added OpenAPI 3.1 coverage, Mintlify docs, quickstarts, guides, webhook event pages, LLM guardrails, Claude skills, and a Next.js checkout example.
+Stay up to date with changes to the Kicbac developer platform — SDK releases, API changes, new webhook event types, and documentation improvements are all recorded here.
+
+<Update label="2026-06-12" description="Developer platform launch">
+  Initial release of the Kicbac developer documentation platform.
+
+  **API Reference**
+  - Published OpenAPI 3.1 specification for `POST /api/transact.php`, `POST /api/query.php`, and all webhook event schemas.
+  - Interactive API playground with JavaScript, Python, and cURL examples.
+
+  **SDKs**
+  - Documented Node.js (`kicbac`), Python (`kicbac`), Next.js (`@kicbac/nextjs`), React (`@kicbac/react`), Browser JS (`@kicbac/js`), and Themes (`@kicbac/themes`) packages.
+
+  **Quickstarts**
+  - Added quickstarts for Next.js App Router, React, Node.js, and Python.
+
+  **Workflow Guides**
+  - Accept a payment (browser tokenization → server charge)
+  - Save cards with Customer Vault and stored credentials (CIT/MIT)
+  - Set up recurring subscriptions with plans
+  - Accept ACH payments with Collect.js hosted bank fields
+  - Verify and handle signed webhooks
+  - Test mode with test tokens and amount simulation
+  - Error handling for declines, `GatewayError`, and timeouts
+
+  **Webhook Event Reference**
+  - Documented 13 event types: `transaction.sale.success`, `transaction.check.status.*`, `recurring.plan.*`, `recurring.subscription.*`, `settlement.batch.*`, `chargeback.batch.complete`, and `acu.summary.*`.
 </Update>

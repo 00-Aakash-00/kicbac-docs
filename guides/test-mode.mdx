@@ -1,6 +1,7 @@
 ---
-title: "Test mode"
-description: "Use Kicbac test tokens, cards, and amount simulations safely."
+title: "Test Kicbac Payments with Test Tokens and Amount Simulation"
+sidebarTitle: "Test Mode"
+description: "Use Kicbac test payment tokens and amount simulations to validate approve, decline, and error flows without processing real transactions."
 ---
 
 Use test credentials and test fixtures only. Never place live keys or real payment data in docs, examples, tests, or support tickets. Get your test keys from [Get your API keys](/credentials).
@@ -25,10 +26,6 @@ Skip the browser while testing the server: pass these tokens straight to `transa
 | `1.00` | Approved, `response=1`, `response_code=100` |
 | `0.99` | Declined, `response=2`, `response_code=200` |
 | `0.05` | Declined, `response=2`, `response_code=200` |
-
-## Card fixture file
-
-The reusable card, ACH, AVS, CVV, response-code, and amount-simulation fixtures live in `openapi/data/`.
 
 <Warning>
   Do not add real PANs, even expired ones. Use only the published test values above.

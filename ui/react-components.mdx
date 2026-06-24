@@ -1,11 +1,14 @@
 ---
-title: "React payment components"
-description: "Use the Kicbac React provider, full payment form, or headless hosted fields."
+title: "Kicbac React Components: Provider, Payment Form, and Hooks"
+sidebarTitle: "React Components"
+description: "Build checkout UIs with @kicbac/react using KicbacProvider, the pre-built KicbacPaymentForm, or the headless usePaymentForm hook for custom layouts."
 ---
 
-`@kicbac/react` includes a full payment form and lower-level hooks for custom layouts.
+`@kicbac/react` gives you three integration options: a drop-in `KicbacPaymentForm` that handles the full checkout flow, a `usePaymentForm` hook for fully custom layouts, and a `KicbacProvider` that supplies your tokenization key and optional appearance settings to whichever component you choose. All options mount Kicbac hosted-field iframes under the hood, so raw card values never appear in your application code.
 
 ## Full form
+
+Wrap your checkout UI in `KicbacProvider` and drop in `KicbacPaymentForm` for a ready-made card collection form. Set `amount` in dollars, point `endpoint` at your server-side charge route, and handle the result with `onSuccess` and `onError` callbacks.
 
 ```tsx
 import { KicbacPaymentForm, KicbacProvider } from "@kicbac/react";
@@ -27,6 +30,8 @@ export function Checkout() {
 ```
 
 ## Headless fields
+
+Use the `usePaymentForm` hook when you need full control over layout, styling, or field order. `getFieldProps` returns the props needed to mount each hosted iframe, and `isValid` reflects whether all required fields have been filled.
 
 ```tsx
 import { KicbacProvider, usePaymentForm } from "@kicbac/react";

@@ -1,9 +1,10 @@
 ---
-title: "Webhooks"
-description: "Verify Kicbac webhook signatures and respond safely."
+title: "Verify and Handle Kicbac Webhooks on Your HTTP Server"
+sidebarTitle: "Webhooks"
+description: "Verify Kicbac webhook signatures using HMAC-SHA256, handle events safely in Node or Next.js, and deduplicate deliveries by event ID."
 ---
 
-Kicbac delivers webhook events to your HTTPS endpoint. Verify the signature before parsing the payload or mutating state.
+Kicbac delivers webhook events to your HTTPS endpoint. Verify the signature before parsing the payload or mutating state. Always operate on the raw request bytes — any transformation of the body will invalidate the signature check.
 
 ## Signature format
 
@@ -49,8 +50,8 @@ export function handle(rawBody: Uint8Array, signature: string) {
 from kicbac import construct_event
 
 
-def handle(raw_body: bytes, signature: str):
-    return construct_event(raw_body, signature, signing_key="whsec_test_kicbac_8675309")
+def handle(raw_body: bytes, signature: str, signing_key: str):
+    return construct_event(raw_body, signature, signing_key=signing_key)
 ```
 
 <Warning>

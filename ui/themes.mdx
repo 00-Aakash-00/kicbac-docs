@@ -1,9 +1,10 @@
 ---
-title: "Appearance and themes"
-description: "Customize Kicbac payment UI using appearance variables and packaged themes."
+title: "Kicbac Appearance and Themes: Customize Your Payment UI"
+sidebarTitle: "Themes"
+description: "Use @kicbac/themes and createTheme() to customize colors, typography, and border radii across all Kicbac hosted fields and the pre-built payment form."
 ---
 
-Use appearance variables to align hosted fields and the payment form with your app.
+Kicbac ships with sensible brand defaults — Inter font, `#141442` indigo text, `#f04ac4` pink accent, 10 px field radii, and 16 px card radii — but you can override any of these through the `appearance` prop on `KicbacProvider`. Pass a theme object built with `createTheme()` from `@kicbac/themes`, and every hosted field and payment form component rendered inside that provider will pick up your design tokens automatically.
 
 ```tsx
 import { KicbacPaymentForm, KicbacProvider } from "@kicbac/react";
@@ -19,11 +20,14 @@ const appearance = createTheme({
 
 export function Checkout() {
   return (
-    <KicbacProvider appearance={appearance}>
+    <KicbacProvider
+      tokenizationKey={process.env.NEXT_PUBLIC_KICBAC_TOKENIZATION_KEY}
+      appearance={appearance}
+    >
       <KicbacPaymentForm amount="49.99" endpoint="/api/pay" />
     </KicbacProvider>
   );
 }
 ```
 
-Kicbac defaults use Inter, 10px field radii, 16px card radii, indigo text, and the pink accent.
+To use the built-in defaults without modification, import `defaultTheme` from `@kicbac/themes` and pass it directly to `appearance`. Any variables you omit from `createTheme` fall back to these same defaults.
