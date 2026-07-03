@@ -2,7 +2,7 @@
 title: "Kicbac recurring.plan.update Webhook Event Reference"
 sidebarTitle: "Plan Updated"
 description: "Fired when a plan is updated via Kicbac API. The event_body has the full current state: plan ID, name, amount, and frequency settings."
-openapi: "openapi/kicbac.openapi.yaml webhook recurring.plan.update"
+openapi: "openapi/kicbac.openapi.json webhook recurring.plan.update"
 ---
 
 The `recurring.plan.update` event fires whenever a recurring plan's properties are modified. The `event_body` always reflects the plan's complete, up-to-date state rather than just the changed fields — compare against your stored copy to determine what changed.

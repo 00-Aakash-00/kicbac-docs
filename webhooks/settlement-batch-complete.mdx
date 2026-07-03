@@ -2,7 +2,7 @@
 title: "settlement.batch.complete Kicbac Webhook Reference"
 sidebarTitle: "Batch Complete"
 description: "Fired when the daily settlement batch succeeds. The event_body includes batch_id, transaction count, total amount, by_card_type, and transaction IDs."
-openapi: "openapi/kicbac.openapi.yaml webhook settlement.batch.complete"
+openapi: "openapi/kicbac.openapi.json webhook settlement.batch.complete"
 ---
 
 The `settlement.batch.complete` event fires once per day when the settlement batch finishes processing successfully. The `event_body` includes a breakdown by card type and the full list of settled transaction IDs, making it straightforward to reconcile daily revenue.

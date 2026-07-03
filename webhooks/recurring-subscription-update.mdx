@@ -2,7 +2,7 @@
 title: "recurring.subscription.update Webhook Event Schema"
 sidebarTitle: "Sub Updated"
 description: "Fired when a recurring subscription is modified. The event_body reflects the full current state: subscription_id, plan details, and schedule."
-openapi: "openapi/kicbac.openapi.yaml webhook recurring.subscription.update"
+openapi: "openapi/kicbac.openapi.json webhook recurring.subscription.update"
 ---
 
 The `recurring.subscription.update` event fires whenever a recurring subscription is modified — for example, when a customer's payment method is swapped or the plan details change. The `event_body` always contains the subscription's complete current state.

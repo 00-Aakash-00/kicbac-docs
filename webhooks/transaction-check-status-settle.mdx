@@ -2,7 +2,7 @@
 title: "transaction.check.status.settle – Webhook Reference"
 sidebarTitle: "check.settle"
 description: "Fired when an ACH check transaction successfully settles with the bank. Contains transaction ID, amount, check account details, and settlement action data."
-openapi: "openapi/kicbac.openapi.yaml webhook transaction.check.status.settle"
+openapi: "openapi/kicbac.openapi.json webhook transaction.check.status.settle"
 ---
 
 The `transaction.check.status.settle` event is sent when an ACH check transaction has cleared and settled with the bank. At this point the funds transfer is complete. Use this event to mark orders as fully paid and trigger any fulfilment steps that depend on confirmed settlement. Deduplicate by `event_id`.

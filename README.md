@@ -15,7 +15,7 @@ pnpm dlx mint dev
 ```bash
 cd docs
 pnpm dlx mint broken-links
-pnpm dlx mint openapi-check openapi/kicbac.openapi.yaml
+pnpm dlx mint openapi-check openapi/kicbac.openapi.json
 ```
 
 The docs use the mirrored OpenAPI file under `docs/openapi/` because current Mintlify CLI releases block `../` paths from a docs project directory.

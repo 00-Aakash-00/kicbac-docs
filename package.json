@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "pnpm dlx mint dev",
     "broken-links": "pnpm dlx mint broken-links",
-    "openapi-check": "pnpm dlx mint openapi-check openapi/kicbac.openapi.yaml",
+    "openapi-check": "pnpm dlx mint openapi-check openapi/kicbac.openapi.json",
     "validate": "pnpm dlx mintlify validate"
   },
   "repository": {

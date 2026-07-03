@@ -2,7 +2,7 @@
 title: "recurring.subscription.delete Webhook Event Schema"
 sidebarTitle: "Sub Deleted"
 description: "Fired when a subscription is canceled or ends naturally. The event_body has subscription_id, plan details, and payment completion data."
-openapi: "openapi/kicbac.openapi.yaml webhook recurring.subscription.delete"
+openapi: "openapi/kicbac.openapi.json webhook recurring.subscription.delete"
 ---
 
 The `recurring.subscription.delete` event fires when a recurring subscription is either explicitly canceled or reaches the end of its scheduled payment cycle. Use this webhook to revoke access, trigger offboarding flows, or update subscription status in your database.

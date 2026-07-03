@@ -74,6 +74,38 @@
                     "stored_credential_indicator": "used",
                     "initial_transaction_id": "9876543210"
                   }
+                },
+                "addCustomerVaultRecord": {
+                  "summary": "Create a Customer Vault record from a Collect.js test token",
+                  "value": {
+                    "security_key": "test_security_key",
+                    "customer_vault": "add_customer",
+                    "payment_token": "00000000-000000-000000-000000000000",
+                    "first_name": "Test",
+                    "last_name": "Customer",
+                    "email": "customer@example.com"
+                  }
+                },
+                "addSubscriptionWithPlan": {
+                  "summary": "Create a subscription against an existing plan",
+                  "value": {
+                    "security_key": "test_security_key",
+                    "recurring": "add_subscription",
+                    "plan_id": "monthly-pro",
+                    "customer_vault_id": "123456789",
+                    "start_date": "20260701"
+                  }
+                },
+                "addInvoice": {
+                  "summary": "Create and email an invoice",
+                  "value": {
+                    "security_key": "test_security_key",
+                    "invoicing": "add_invoice",
+                    "amount": "49.99",
+                    "email": "customer@example.com",
+                    "payment_terms": "upon_receipt",
+                    "payment_methods_allowed": "cc,ck"
+                  }
                 }
               }
             }
@@ -711,7 +743,8 @@
               "capture",
               "void",
               "refund",
-              "update"
+              "update",
+              "complete_partial_payment"
             ]
           },
           "payment": {

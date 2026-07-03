@@ -2,7 +2,7 @@
 title: "chargeback.batch.complete Kicbac Webhook Reference"
 sidebarTitle: "Chargeback"
 description: "Fired when chargeback reporting completes for a batch. The event_body includes batch_id, count, chargeback_amount, and a chargebacks array."
-openapi: "openapi/kicbac.openapi.yaml webhook chargeback.batch.complete"
+openapi: "openapi/kicbac.openapi.json webhook chargeback.batch.complete"
 ---
 
 The `chargeback.batch.complete` event fires when Kicbac finishes processing a chargeback reporting batch. Each entry in the `chargebacks` array includes the transaction ID, customer name, masked card number, disputed amount, and the reason code, giving you everything needed to investigate and respond to disputes.

@@ -2,7 +2,7 @@
 title: "recurring.plan.add Webhook Event Reference | Kicbac"
 sidebarTitle: "Plan Added"
 description: "Fired when kicbac.plans.create() succeeds. The event_body includes plan ID, name, amount, frequency, payment count, and day_of_month."
-openapi: "openapi/kicbac.openapi.yaml webhook recurring.plan.add"
+openapi: "openapi/kicbac.openapi.json webhook recurring.plan.add"
 ---
 
 The `recurring.plan.add` event fires immediately after a new recurring plan is successfully created via `kicbac.plans.create()`. Use this webhook to sync newly created plan records to your own database or trigger downstream onboarding workflows.

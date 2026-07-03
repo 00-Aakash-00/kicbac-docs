@@ -2,7 +2,7 @@
 title: "transaction.check.status.latereturn – Webhook Reference"
 sidebarTitle: "check.latereturn"
 description: "Fired when an ACH check is returned by the bank after initial settlement has already occurred. Contains transaction ID and late return action details."
-openapi: "openapi/kicbac.openapi.yaml webhook transaction.check.status.latereturn"
+openapi: "openapi/kicbac.openapi.json webhook transaction.check.status.latereturn"
 ---
 
 The `transaction.check.status.latereturn` event is sent when an ACH check transaction is returned by the bank *after* it had already appeared to settle. This is sometimes called a late return or a reversal. When you receive this event, the previously settled funds have been clawed back; you should update your records, notify the customer, and handle any downstream fulfilment or accounting adjustments. Deduplicate by `event_id`.

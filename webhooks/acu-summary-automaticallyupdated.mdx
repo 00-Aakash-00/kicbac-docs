@@ -2,7 +2,7 @@
 title: "acu.summary.automaticallyupdated Webhook Reference"
 sidebarTitle: "Auto Updated"
 description: "Fired when ACU updates a vaulted card automatically. The event_body includes customer_vault_id, updated cc_number, cc_exp, and cardholder info."
-openapi: "openapi/kicbac.openapi.yaml webhook acu.summary.automaticallyupdated"
+openapi: "openapi/kicbac.openapi.json webhook acu.summary.automaticallyupdated"
 ---
 
 The `acu.summary.automaticallyupdated` event fires when the Automatic Card Updater (ACU) service successfully refreshes one or more vaulted cards with new card details provided by the issuer. The `vault_updated_cards` array lists every card that was updated, including the new expiration date, so you can notify customers or update your own records.

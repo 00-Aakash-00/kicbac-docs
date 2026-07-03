@@ -2,7 +2,7 @@
 title: "Kicbac recurring.plan.delete Webhook Event Reference"
 sidebarTitle: "Plan Deleted"
 description: "Fired when a recurring plan is deleted from the Kicbac dashboard. The event_body includes plan ID, name, amount, frequency, and payments."
-openapi: "openapi/kicbac.openapi.yaml webhook recurring.plan.delete"
+openapi: "openapi/kicbac.openapi.json webhook recurring.plan.delete"
 ---
 
 The `recurring.plan.delete` event fires when a recurring plan is permanently removed from the Kicbac dashboard. Use this webhook to clean up or archive plan records in your system. Any active subscriptions tied to the deleted plan should be reviewed immediately.

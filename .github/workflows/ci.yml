@@ -24,3 +24,14 @@ jobs:
       - run: pnpm run broken-links
       - run: pnpm run openapi-check
       - run: pnpm run validate
+
+  fixtures-sync:
+    name: openapi/ subset matches kicbac-js
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: 00-Aakash-00/kicbac-js
+          path: upstream-kicbac-js
+      - run: for f in data/amount-simulation.json data/avs-codes.json data/cvv-codes.json data/response-codes.json data/test-cards.json kicbac.openapi.json; do diff "openapi/$f" "upstream-kicbac-js/openapi/$f" || exit 1; done

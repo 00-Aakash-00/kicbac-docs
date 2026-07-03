@@ -36,7 +36,7 @@
     "codeblocks": "dark"
   },
   "api": {
-    "openapi": "openapi/kicbac.openapi.yaml",
+    "openapi": "openapi/kicbac.openapi.json",
     "playground": {
       "display": "interactive",
       "proxy": false,
@@ -92,7 +92,7 @@
       {
         "tab": "API Reference",
         "icon": "square-terminal",
-        "openapi": "openapi/kicbac.openapi.yaml",
+        "openapi": "openapi/kicbac.openapi.json",
         "groups": [
           {
             "group": "Overview",

@@ -2,7 +2,7 @@
 title: "acu.summary.closedaccount Kicbac Webhook Reference"
 sidebarTitle: "Closed Account"
 description: "Fired when ACU reports a vaulted card account is closed. The event_body includes customer_vault_id, cc_number, cc_exp, and cardholder details."
-openapi: "openapi/kicbac.openapi.yaml webhook acu.summary.closedaccount"
+openapi: "openapi/kicbac.openapi.json webhook acu.summary.closedaccount"
 ---
 
 The `acu.summary.closedaccount` event fires when the Automatic Card Updater (ACU) service determines that a vaulted card's underlying account has been closed by the issuer. Cards listed in `vault_updates` can no longer be charged successfully — reach out to affected customers to collect a new payment method before their next billing cycle.
