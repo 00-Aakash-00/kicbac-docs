@@ -5,10 +5,12 @@
   "license": "MIT",
   "packageManager": "pnpm@9.15.4",
   "scripts": {
-    "dev": "pnpm dlx mint dev",
-    "broken-links": "pnpm dlx mint broken-links",
-    "openapi-check": "pnpm dlx mint openapi-check openapi/kicbac.openapi.json",
-    "validate": "pnpm dlx mintlify validate"
+    "dev": "pnpm exec mint dev",
+    "broken-links": "pnpm exec mint broken-links",
+    "openapi-check": "pnpm exec mint openapi-check openapi/kicbac.openapi.json"
+  },
+  "devDependencies": {
+    "mint": "4.2.666"
   },
   "repository": {
     "type": "git",

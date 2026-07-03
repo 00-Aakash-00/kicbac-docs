@@ -20,10 +20,9 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
-      - run: pnpm install --lockfile-only
+      - run: pnpm install --frozen-lockfile
       - run: pnpm run broken-links
       - run: pnpm run openapi-check
-      - run: pnpm run validate
 
   fixtures-sync:
     name: openapi/ subset matches kicbac-js

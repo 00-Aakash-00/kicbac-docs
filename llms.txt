@@ -13,11 +13,47 @@
 - Authenticate servers with `security_key` only. Do not generate username/password auth or raw-card server-post examples.
 - Use the SDK method names shown in these docs and package READMEs.
 
-## Start here
+## Quickstarts
 
-- [Get your API keys](/credentials.md)
-- [Next.js quickstart](/quickstarts/nextjs.md)
-- [Accept a payment](/guides/accept-a-payment.md)
-- [Save cards](/guides/save-cards.md)
-- [Webhooks](/guides/webhooks.md)
-- [API overview](/api/overview.md)
+- [Get your API keys](/credentials.md): create sandbox credentials and find your keys.
+- [Next.js quickstart](/quickstarts/nextjs.md): build an App Router checkout.
+- [React quickstart](/quickstarts/react.md): render hosted payment fields.
+- [Node quickstart](/quickstarts/node.md): charge tokens server-side.
+- [Python quickstart](/quickstarts/python.md): use the Python server SDK.
+
+## Guides
+
+- [Accept a payment](/guides/accept-a-payment.md): tokenize and charge a card.
+- [Save cards](/guides/save-cards.md): create Customer Vault records and MIT charges.
+- [Subscriptions](/guides/subscriptions.md): create plans and subscriptions.
+- [ACH](/guides/ach.md): collect and charge ACH tokens.
+- [Webhooks](/guides/webhooks.md): verify signatures and process events.
+- [Test mode](/guides/test-mode.md): use sandbox tokens and amount simulations.
+- [Error handling](/guides/error-handling.md): distinguish declines, gateway errors, and retries.
+
+## API reference
+
+- [API overview](/api/overview.md): Payment API, Query API, and webhook contract overview.
+
+## SDKs
+
+- [Node SDK](/sdk/node.md): server-side transactions, vault, recurring, invoices, Query API, and webhooks.
+- [Python SDK](/sdk/python.md): sync and async Python clients.
+- [Next.js SDK](/sdk/nextjs.md): route handlers and server helpers.
+- [React SDK](/sdk/react.md): checkout form, provider, and hooks.
+- [Browser JS SDK](/sdk/js.md): Kicbac.js loader and tokenization client.
+- [Themes SDK](/sdk/themes.md): shared appearance variables and themes.
+
+## UI
+
+- [Hosted fields](/ui/hosted-fields.md): hosted field behavior and constraints.
+- [React components](/ui/react-components.md): payment form and field components.
+- [Themes](/ui/themes.md): appearance tokens for checkout UI.
+
+## Webhooks
+
+- [Webhook overview](/webhooks/overview.md): signature verification, dedupe, and event routing.
+
+## Changelog
+
+- [Changelog](/changelog.md): release notes and migration notes.

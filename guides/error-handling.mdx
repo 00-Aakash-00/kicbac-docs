@@ -6,6 +6,10 @@ description: "Learn how Kicbac SDKs separate typed declines from gateway errors 
 
 Kicbac SDKs separate customer declines from exceptional failures. A `response=2` decline returns a typed result object (`result.ok === false`) — it is not thrown. A `response=3` gateway error is thrown as a `GatewayError`. Network and parse failures are thrown as `TimeoutError`. Handle all three paths explicitly.
 
+Python exceptions include `APIError` for gateway/transport failures,
+`APIStatusError` for unexpected non-200 HTTP statuses, and
+`APITimeoutError` for request timeouts.
+
 ## Node
 
 ```ts errors.ts
@@ -52,11 +56,11 @@ try:
         print("declined", result.response_code, result.message)
     else:
         print("approved", result.transaction_id)
-except APIError as error:
-    print("gateway error", error.response_code)
-    raise
 except APITimeoutError:
     print("timeout before a response was parsed")
+    raise
+except APIError as error:
+    print("gateway error", error.response_code)
     raise
 ```
 

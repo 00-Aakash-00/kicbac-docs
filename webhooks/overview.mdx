@@ -50,3 +50,9 @@ Each event payload includes an `event_id` UUID. Store processed IDs and skip dup
 </Columns>
 
 Return HTTP 200 only after your endpoint accepts the event. Use `event_id` for dedupe.
+
+The JavaScript SDK type union covers the broader
+`transaction.{sale,auth,capture,void,refund,credit}.{success,failure,unknown}`
+family, while these docs enumerate the most common events. All events share
+the same envelope and signature scheme, so handle unlisted `transaction.*`
+combinations generically with a `"*"` handler or an `event_type` switch.
