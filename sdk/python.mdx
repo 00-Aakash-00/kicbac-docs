@@ -12,6 +12,8 @@ Install with pip:
 python -m pip install kicbac
 ```
 
+If the registry returns `not found`, use the [verified, pinned source fallback](/sdk/source-install).
+
 ## Sync client
 
 ```python
@@ -79,6 +81,17 @@ product = client.products.create(
     cost="19.99",
     currency="USD",
 )
+
+if not product.ok or not product.product_id:
+    raise RuntimeError("Product was not created")
+
+# Update and delete take product_id as the first positional argument.
+client.products.update(
+    product.product_id,
+    description="Updated product name",
+    cost="24.99",
+)
+client.products.delete(product.product_id)
 ```
 
 ## Webhooks

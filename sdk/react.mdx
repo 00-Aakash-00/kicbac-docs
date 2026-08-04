@@ -12,6 +12,8 @@ Install:
 pnpm add @kicbac/react
 ```
 
+If the registry returns `not found`, use the [verified, pinned source fallback](/sdk/source-install).
+
 ## Provider and form
 
 ```tsx
@@ -65,3 +67,15 @@ export function HeadlessCheckout() {
   );
 }
 ```
+
+The built-in endpoint contract treats only `402 { ok: false, ... }` as a
+definitive, retryable decline. A network failure, non-402 response, malformed
+JSON, or a success body whose `ok` value is not exactly `true` moves the form
+to a terminal `unconfirmed` state. A confirmed success also requires a
+nonblank `transactionId`. Reconcile the server-owned order reference before
+rendering a fresh attempt.
+
+For hosted bank entry, compose `BankAccountNameField`, `BankAccountField`, and
+`BankRoutingField` for US accounts. Canadian accounts use
+`BankTransitField` and `BankInstitutionField` in place of the routing field;
+charge them as CAD. All five components mount Kicbac.js iframes.

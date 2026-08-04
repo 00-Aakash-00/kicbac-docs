@@ -12,6 +12,8 @@ Install:
 pnpm add @kicbac/nextjs
 ```
 
+If the registry returns `not found`, use the [verified, pinned source fallback](/sdk/source-install).
+
 ## Charge route
 
 `createKicbacRouteHandler` requires exactly one amount strategy.
@@ -22,7 +24,8 @@ import { createKicbacRouteHandler } from "@kicbac/nextjs/server";
 export const runtime = "nodejs";
 
 export const { POST } = createKicbacRouteHandler({
-  amount: "49.99"
+  amount: "49.99",
+  currency: "USD"
 });
 ```
 
@@ -33,9 +36,16 @@ export const { POST } = createKicbacRouteHandler({
   amountResolver: async ({ body }) => {
     const cartId = String(body.metadata?.cartId ?? "");
     return await lookupCartTotal(cartId);
-  }
+  },
+  saleParams: async () => ({ currency: "CAD" })
 });
 ```
+
+The helper accepts only JSON shaped as `{ token, amount?, currency?, metadata? }`.
+It rejects unexpected top-level fields, payment or credential data hidden in
+metadata, invalid content types, and a browser currency that differs from the
+server-owned currency. Browser totals and metadata are lookup hints, not
+authorization to choose the charge.
 
 ## Webhook route
 

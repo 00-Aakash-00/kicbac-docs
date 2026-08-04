@@ -113,6 +113,7 @@
           {
             "group": "Server",
             "pages": [
+              "sdk/source-install",
               "sdk/node",
               "sdk/python",
               "sdk/nextjs"

@@ -12,6 +12,8 @@ Install with pnpm:
 pnpm add kicbac
 ```
 
+If the registry returns `not found`, use the [verified, pinned source fallback](/sdk/source-install).
+
 ## Client
 
 ```ts
@@ -101,6 +103,19 @@ const product = await kicbac.products.create({
   cost: "19.99",
   currency: "USD"
 });
+
+if (!product.ok || !product.productId) {
+  throw new Error(product.ok ? "Product ID missing" : product.message);
+}
+
+await kicbac.products.update({
+  productId: product.productId,
+  description: "Updated product name",
+  cost: "24.99"
+});
+
+// Delete accepts the product ID string, not an object.
+await kicbac.products.delete(product.productId);
 ```
 
 ## Webhooks

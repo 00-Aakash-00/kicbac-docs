@@ -82,3 +82,41 @@ except APIError as error:
 - `transact.php` POSTs are not retried after the request may have reached the gateway.
 - A pre-send connection failure can be retried because no gateway operation was created.
 - Use `dup_seconds` for gateway duplicate detection, not client-side blind retries.
+
+## Reconcile an ambiguous write
+
+Persist a unique server-generated `orderId` before calling `transact.php`.
+When a timeout, broken connection, or unreadable response may have happened
+after the request was sent, keep that payment attempt blocked and query the
+same ID:
+
+<CodeGroup>
+```ts Node.js
+const matches = [];
+for await (const transaction of kicbac.query.transactions({ orderId })) {
+  matches.push(transaction);
+}
+
+if (matches.length > 0) {
+  await reconcileAttemptFromGateway(matches);
+} else {
+  await keepAttemptBlockedAndRecheckLater(orderId);
+}
+```
+
+```python Python
+matches = list(client.query.transactions(order_id=order_id))
+
+if matches:
+    reconcile_attempt_from_gateway(matches)
+else:
+    keep_attempt_blocked_and_recheck_later(order_id)
+```
+</CodeGroup>
+
+An empty query immediately after the error does **not** prove the write failed.
+Wait for a webhook, query again after a delay, or send the attempt to manual
+review. Create a new attempt only after the original outcome is definitive.
+Enforce at most one processing or unconfirmed attempt for each customer account
+and payment operation; browser storage can improve the UX but cannot enforce
+that server-side invariant.

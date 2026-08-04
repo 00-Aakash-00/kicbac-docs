@@ -20,6 +20,8 @@ Use `@kicbac/nextjs` when you want the hosted payment form and a server-owned ch
 pnpm add @kicbac/nextjs
 ```
 
+If the registry returns `not found`, use the [verified, pinned source fallback](/sdk/source-install).
+
   </Step>
   <Step title="Load the provider">
 
@@ -56,11 +58,14 @@ import { createKicbacRouteHandler } from "@kicbac/nextjs/server";
 export const runtime = "nodejs";
 
 export const { POST } = createKicbacRouteHandler({
-  amount: "49.99"
+  amount: "49.99",
+  currency: "USD"
 });
 ```
 
-The route ignores browser-submitted totals. Use `amountResolver` when the amount comes from a server-side cart lookup.
+The route ignores browser-submitted totals and requires any submitted currency
+to match the server value. Use `amountResolver` when the amount comes from a
+server-side cart lookup.
 
   </Step>
   <Step title="Render the checkout form">

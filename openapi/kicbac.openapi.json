@@ -1236,6 +1236,522 @@
         "required": [
           "security_key"
         ],
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "enum": [
+                    "sale",
+                    "auth",
+                    "credit",
+                    "offline"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "amount"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "const": "capture"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "transactionid",
+                "amount"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "enum": [
+                    "void",
+                    "refund",
+                    "update"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "transactionid"
+              ],
+              "properties": {
+                "payment": {
+                  "enum": [
+                    "creditcard",
+                    "check"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "const": "offline"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "authorization_code"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "const": "complete_partial_payment"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "partial_payment_id",
+                "partial_payments"
+              ],
+              "properties": {
+                "partial_payments": {
+                  "const": "payment_in_full"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "recurring"
+              ],
+              "properties": {
+                "recurring": {
+                  "const": "add_plan"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "plan_id",
+                "plan_name",
+                "plan_amount",
+                "plan_payments"
+              ],
+              "oneOf": [
+                {
+                  "required": [
+                    "day_frequency"
+                  ],
+                  "not": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "month_frequency"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "day_of_month"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "required": [
+                    "month_frequency",
+                    "day_of_month"
+                  ],
+                  "not": {
+                    "required": [
+                      "day_frequency"
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "recurring"
+              ],
+              "properties": {
+                "recurring": {
+                  "const": "edit_plan"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "current_plan_id"
+              ],
+              "oneOf": [
+                {
+                  "required": [
+                    "day_frequency"
+                  ],
+                  "not": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "month_frequency"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "day_of_month"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "required": [
+                    "month_frequency",
+                    "day_of_month"
+                  ],
+                  "not": {
+                    "required": [
+                      "day_frequency"
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "recurring"
+              ],
+              "properties": {
+                "recurring": {
+                  "const": "add_subscription"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "payment": {
+                  "enum": [
+                    "creditcard",
+                    "check"
+                  ]
+                }
+              },
+              "oneOf": [
+                {
+                  "required": [
+                    "plan_id"
+                  ],
+                  "not": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "plan_amount"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "plan_payments"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "day_frequency"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "month_frequency"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "day_of_month"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "required": [
+                    "plan_amount",
+                    "plan_payments"
+                  ],
+                  "not": {
+                    "required": [
+                      "plan_id"
+                    ]
+                  },
+                  "oneOf": [
+                    {
+                      "required": [
+                        "day_frequency"
+                      ],
+                      "not": {
+                        "anyOf": [
+                          {
+                            "required": [
+                              "month_frequency"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "day_of_month"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "required": [
+                        "month_frequency",
+                        "day_of_month"
+                      ],
+                      "not": {
+                        "required": [
+                          "day_frequency"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "recurring"
+              ],
+              "properties": {
+                "recurring": {
+                  "enum": [
+                    "update_subscription",
+                    "delete_subscription"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "subscription_id"
+              ],
+              "properties": {
+                "payment": {
+                  "enum": [
+                    "creditcard",
+                    "check"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "customer_vault"
+              ]
+            },
+            "then": {
+              "properties": {
+                "payment": {
+                  "enum": [
+                    "creditcard",
+                    "check"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "customer_vault"
+              ],
+              "properties": {
+                "customer_vault": {
+                  "enum": [
+                    "update_customer",
+                    "delete_customer"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "customer_vault_id"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "customer_vault"
+              ],
+              "properties": {
+                "customer_vault": {
+                  "const": "add_billing"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "customer_vault_id"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "customer_vault"
+              ],
+              "properties": {
+                "customer_vault": {
+                  "enum": [
+                    "update_billing",
+                    "delete_billing"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "customer_vault_id",
+                "billing_id"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "invoicing"
+              ],
+              "properties": {
+                "invoicing": {
+                  "const": "add_invoice"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "amount",
+                "email"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "invoicing"
+              ],
+              "properties": {
+                "invoicing": {
+                  "const": "update_invoice"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "invoice_id"
+              ],
+              "not": {
+                "required": [
+                  "currency"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "invoicing"
+              ],
+              "properties": {
+                "invoicing": {
+                  "enum": [
+                    "send_invoice",
+                    "close_invoice"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "invoice_id"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "products"
+              ],
+              "properties": {
+                "products": {
+                  "const": "add_product"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "product_sku",
+                "product_description",
+                "product_cost",
+                "product_currency"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "products"
+              ],
+              "properties": {
+                "products": {
+                  "enum": [
+                    "update_product",
+                    "delete_product"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "product_id"
+              ]
+            }
+          }
+        ],
         "properties": {
           "security_key": {
             "type": "string",
@@ -1259,10 +1775,11 @@
           },
           "payment": {
             "type": "string",
-            "description": "Payment rail selector for void/refund operations.",
+            "description": "Payment rail selector.",
             "enum": [
               "creditcard",
-              "check"
+              "check",
+              "cash"
             ]
           },
           "amount": {
@@ -1354,11 +1871,12 @@
           },
           "tax": {
             "type": "string",
-            "pattern": "^\\d{1,8}(\\.\\d{1,2})?$",
+            "pattern": "^-?\\d{1,8}(\\.\\d{1,2})?$",
             "examples": [
-              "49.99"
+              "49.99",
+              "-1.00"
             ],
-            "description": "Decimal amount with 1-8 integer digits and an optional 1-2 digit decimal part."
+            "description": "Sales-tax amount. A negative value is the documented tax-exempt signal."
           },
           "shipping": {
             "type": "string",
@@ -1647,10 +2165,6 @@
               "verified",
               "attempted"
             ]
-          },
-          "eci": {
-            "type": "string",
-            "description": "3-D Secure electronic commerce indicator."
           },
           "three_ds_version": {
             "type": "string",
@@ -2069,6 +2583,7 @@
             "type": "string",
             "description": "Special report type.",
             "enum": [
+              "transaction",
               "receipt",
               "customer_vault",
               "recurring",

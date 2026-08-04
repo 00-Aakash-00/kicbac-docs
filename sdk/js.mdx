@@ -12,6 +12,8 @@ Install:
 pnpm add @kicbac/js
 ```
 
+If the registry returns `not found`, use the [verified, pinned source fallback](/sdk/source-install).
+
 ## Load Kicbac.js
 
 ```ts
@@ -42,3 +44,13 @@ console.log(token.token);
 ```
 
 Kicbac.js is a page-wide singleton. Destroy a session before mounting another one.
+
+Set `timeoutDuration: 0` in `createFieldSession` only when you intentionally
+want to disable both the Kicbac.js timeout and the wrapper's local safety timer.
+
+## Hosted bank fields
+
+US bank forms use `checkname`, `checkaccount`, and `checkaba`. Canadian bank
+forms use `checkname`, `checkaccount`, `checktransit`, and `checkinstitution`,
+and the eventual transaction or subscription must use `currency: "CAD"`.
+These are hosted iframe mount points; never replace them with raw bank inputs.

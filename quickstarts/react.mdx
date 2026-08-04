@@ -18,6 +18,8 @@ Use `@kicbac/react` when your backend is not Next.js but you still want the host
 pnpm add @kicbac/react
 ```
 
+If the registry returns `not found`, use the [verified, pinned source fallback](/sdk/source-install).
+
   </Step>
   <Step title="Wrap your app">
 
@@ -52,19 +54,31 @@ import Kicbac from "kicbac";
 
 const kicbac = new Kicbac();
 
-export async function charge(body: { token: string }) {
+export async function charge(body: { token: string }, orderId: string) {
   const result = await kicbac.transactions.sale({
     amount: "49.99",
-    paymentToken: body.token
+    paymentToken: body.token,
+    orderId
   });
 
   if (!result.ok) {
     return { status: 402, body: { ok: false, message: result.message } };
   }
 
+  if (!result.transactionId) {
+    return {
+      status: 500,
+      body: { ok: false, message: "Approval received without a transaction ID. Reconcile before retrying." }
+    };
+  }
+
   return { status: 200, body: { ok: true, transactionId: result.transactionId } };
 }
 ```
+
+Generate and persist `orderId` on the server before calling `charge`. If the
+call throws or its outcome is otherwise ambiguous, keep that attempt blocked
+and reconcile the same order ID before allowing another payment.
 
   </Step>
 </Steps>
