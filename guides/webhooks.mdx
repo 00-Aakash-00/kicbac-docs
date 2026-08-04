@@ -21,6 +21,8 @@ The signature is `HMAC-SHA256(signingKey, nonce + "." + rawBody)` over the exact
 ```ts app/api/kicbac/webhook/route.ts
 import { kicbacWebhookHandler } from "@kicbac/nextjs/server";
 
+export const runtime = "nodejs";
+
 export const { POST } = kicbacWebhookHandler({
   "transaction.sale.success": async (event) => {
     console.log(event.event_id);
@@ -31,7 +33,7 @@ export const { POST } = kicbacWebhookHandler({
 });
 ```
 
-The helper reads `request.arrayBuffer()` before verification so the signed bytes are preserved.
+The helper streams the exact raw bytes through a size-limited reader before verification.
 
 ## Node verifier
 
@@ -61,3 +63,13 @@ def handle(raw_body: bytes, signature: str, signing_key: str):
 ## Delivery behavior
 
 Return HTTP 200 only after accepting the event. Non-200 responses are retried up to about 20 times over roughly 3 days. Dedupe by `event_id`; the `t=` value is a nonce, not a timestamp.
+
+## Event catalog
+
+- `transaction.{sale,auth,capture,void,refund,credit}.{success,failure,unknown}` reports a transaction action outcome.
+- `transaction.check.status.{settle,return,latereturn}` reports an ACH status change.
+- `recurring.{plan,subscription}.{add,update,delete}` reports recurring-billing changes.
+- `settlement.batch.{complete,failure}` and `chargeback.batch.complete` report batch operations.
+- `acu.summary.{automaticallyupdated,closedaccount,contactcustomer}` reports automatic card-update outcomes.
+
+An `unknown` transaction outcome is not a decline. Reconcile it using the transaction or order reference already stored for the attempt; do not submit the payment again until its status is known.

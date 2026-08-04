@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "pnpm exec mint dev",
     "broken-links": "pnpm exec mint broken-links",
-    "openapi-check": "pnpm exec mint openapi-check openapi/kicbac.openapi.json"
+    "validate": "pnpm exec mint validate",
+    "a11y": "pnpm exec mint a11y",
+    "build": "pnpm exec mint export --output .mintlify/export.zip"
   },
   "devDependencies": {
     "mint": "4.2.666"

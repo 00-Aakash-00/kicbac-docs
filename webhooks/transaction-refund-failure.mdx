@@ -1,0 +1,10 @@
+---
+title: "transaction.refund.failure webhook reference"
+sidebarTitle: "refund.failure"
+description: "Sent when a refund fails. Confirm the original transaction state before retrying the refund."
+openapi: "openapi/kicbac.openapi.json webhook transaction.refund.failure"
+---
+
+The `transaction.refund.failure` event reports that a refund was unsuccessful. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Do not mark the amount as refunded. Record the response details and query the existing `transaction_id` or `order_id` before deciding whether another refund is appropriate.

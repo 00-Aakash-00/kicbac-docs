@@ -1,0 +1,10 @@
+---
+title: "transaction.capture.unknown webhook reference"
+sidebarTitle: "capture.unknown"
+description: "Sent when a capture outcome cannot be confirmed. Reconcile the transaction before capturing again."
+openapi: "openapi/kicbac.openapi.json webhook transaction.capture.unknown"
+---
+
+The `transaction.capture.unknown` event reports an ambiguous capture outcome. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Do not capture again automatically. Query and reconcile the existing `transaction_id` or `order_id` so a successful but unconfirmed capture is not duplicated.

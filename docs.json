@@ -2,11 +2,11 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "palm",
   "name": "Kicbac",
-  "description": "Kicbac developer documentation for tokenized payments, Customer Vault, recurring billing, ACH, webhooks, and SDKs.",
+  "description": "Kicbac developer documentation for tokenized payments, Customer Vault, recurring billing, Product Manager, ACH, webhooks, and SDKs.",
   "colors": {
-    "primary": "#f04ac4",
+    "primary": "#cc1fa3",
     "light": "#f04ac4",
-    "dark": "#141442"
+    "dark": "#f04ac4"
   },
   "favicon": "/images/brand/kicbac_favicon.png",
   "logo": {
@@ -92,17 +92,16 @@
       {
         "tab": "API Reference",
         "icon": "square-terminal",
-        "openapi": "openapi/kicbac.openapi.json",
         "groups": [
           {
             "group": "Overview",
-            "pages": ["api/overview"]
+            "pages": ["reference/overview"]
           },
           {
             "group": "Gateway",
             "pages": [
-              "POST /api/transact.php",
-              "POST /api/query.php"
+              "reference/transact",
+              "reference/query"
             ]
           }
         ]
@@ -150,6 +149,28 @@
             "group": "Transaction events",
             "pages": [
               "webhooks/transaction-sale-success",
+              "webhooks/transaction-sale-failure",
+              "webhooks/transaction-sale-unknown",
+              "webhooks/transaction-auth-success",
+              "webhooks/transaction-auth-failure",
+              "webhooks/transaction-auth-unknown",
+              "webhooks/transaction-capture-success",
+              "webhooks/transaction-capture-failure",
+              "webhooks/transaction-capture-unknown",
+              "webhooks/transaction-void-success",
+              "webhooks/transaction-void-failure",
+              "webhooks/transaction-void-unknown",
+              "webhooks/transaction-refund-success",
+              "webhooks/transaction-refund-failure",
+              "webhooks/transaction-refund-unknown",
+              "webhooks/transaction-credit-success",
+              "webhooks/transaction-credit-failure",
+              "webhooks/transaction-credit-unknown"
+            ]
+          },
+          {
+            "group": "Check status events",
+            "pages": [
               "webhooks/transaction-check-status-settle",
               "webhooks/transaction-check-status-return",
               "webhooks/transaction-check-status-latereturn"
@@ -212,7 +233,7 @@
         "header": "Build",
         "items": [
           { "label": "Next.js quickstart", "href": "/quickstarts/nextjs" },
-          { "label": "API reference", "href": "/api/overview" },
+          { "label": "API reference", "href": "/reference/overview" },
           { "label": "Webhooks", "href": "/webhooks/overview" }
         ]
       },

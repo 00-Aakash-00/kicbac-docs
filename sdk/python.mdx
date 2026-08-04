@@ -42,6 +42,45 @@ async with AsyncKicbac() as client:
     )
 ```
 
+## Available namespaces
+
+Both clients expose the same resource layout. Use `transactions` for `sale`,
+`authorize`, `credit`, `validate`, `offline`, `capture`, `void`, `refund`,
+`update`, and `complete_partial_payment`;
+`customers` for vault records, billing records, and stored-payment charges;
+`plans` and `subscriptions` for recurring billing; `invoices` for invoice
+operations; `products` for Product Manager create/update/delete; and `query`
+for transaction, customer, subscription, plan, and
+invoice lookups. Use `query.raw()` for a read-only report type without a typed
+model; the client supplies `security_key` and returns the body unchanged.
+
+`capture` requires an amount. Pass `payment="check"` on an ACH void, refund,
+or update. `complete_partial_payment()` fixes `partial_payments` to
+`payment_in_full` for the referenced split-tender chain.
+
+## Inline subscription plan
+
+Pass exactly one saved `plan_id` or an inline `plan`. Inline plans accept a day
+frequency or a month frequency paired with a day of month.
+
+```python
+subscription = client.subscriptions.create(
+    plan={"amount": "29.00", "payments": 12, "day_frequency": 30},
+    payment_token="00000000-000000-000000-000000000000",
+)
+```
+
+## Product Manager
+
+```python
+product = client.products.create(
+    sku="SKU-100",
+    description="Example product",
+    cost="19.99",
+    currency="USD",
+)
+```
+
 ## Webhooks
 
 ```python

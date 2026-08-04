@@ -17,7 +17,10 @@ import "@kicbac/react/styles.css";
 
 export function CheckoutForm() {
   return (
-    <KicbacProvider tokenizationKey={process.env.NEXT_PUBLIC_KICBAC_TOKENIZATION_KEY}>
+    <KicbacProvider
+      tokenizationKey={process.env.NEXT_PUBLIC_KICBAC_TOKENIZATION_KEY}
+      injectStyles={false}
+    >
       <KicbacPaymentForm
         amount="49.99"
         endpoint="/api/pay"
@@ -37,11 +40,11 @@ import Kicbac from "kicbac";
 
 const kicbac = new Kicbac();
 
-export async function chargeToken(token: string) {
+export async function chargeToken(token: string, orderId: string) {
   const result = await kicbac.transactions.sale({
     amount: "49.99",
     paymentToken: token,
-    orderId: "order_1001"
+    orderId
   });
 
   if (!result.ok) {
@@ -51,6 +54,11 @@ export async function chargeToken(token: string) {
   return { ok: true, transactionId: result.transactionId };
 }
 ```
+
+Create and persist the unique `orderId` from server-owned order state before
+calling `chargeToken`. A new attempt after a definitive decline needs a fresh ID
+and payment token. If the outcome is ambiguous, do not call the function again;
+query and reconcile the existing ID first. The ID is not an idempotency key.
 
   </Step>
   <Step title="Handle the three gateway outcomes">

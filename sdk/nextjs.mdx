@@ -19,6 +19,8 @@ pnpm add @kicbac/nextjs
 ```ts app/api/kicbac/route.ts
 import { createKicbacRouteHandler } from "@kicbac/nextjs/server";
 
+export const runtime = "nodejs";
+
 export const { POST } = createKicbacRouteHandler({
   amount: "49.99"
 });
@@ -40,6 +42,8 @@ export const { POST } = createKicbacRouteHandler({
 ```ts app/api/kicbac/webhook/route.ts
 import { kicbacWebhookHandler } from "@kicbac/nextjs/server";
 
+export const runtime = "nodejs";
+
 export const { POST } = kicbacWebhookHandler({
   "transaction.sale.success": async (event) => {
     console.log(event.event_id);
@@ -47,4 +51,4 @@ export const { POST } = kicbacWebhookHandler({
 });
 ```
 
-The helper reads exact raw bytes with `arrayBuffer()` before verifying the signature.
+The helper streams the exact raw bytes through a size-limited reader before verifying the signature.

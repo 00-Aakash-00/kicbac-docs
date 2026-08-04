@@ -1,0 +1,10 @@
+---
+title: "transaction.sale.unknown webhook reference"
+sidebarTitle: "sale.unknown"
+description: "Sent when the outcome of a card sale cannot be confirmed. Reconcile the transaction before attempting another charge."
+openapi: "openapi/kicbac.openapi.json webhook transaction.sale.unknown"
+---
+
+The `transaction.sale.unknown` event reports an ambiguous card-sale outcome. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Do not fulfil the order or retry the sale automatically. Query and reconcile the existing `transaction_id` or `order_id`; create a new payment attempt only after you have established the original outcome.

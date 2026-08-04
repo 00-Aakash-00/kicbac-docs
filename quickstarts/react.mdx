@@ -27,7 +27,10 @@ import "@kicbac/react/styles.css";
 
 export function App() {
   return (
-    <KicbacProvider tokenizationKey={import.meta.env.VITE_KICBAC_TOKENIZATION_KEY}>
+    <KicbacProvider
+      tokenizationKey={import.meta.env.VITE_KICBAC_TOKENIZATION_KEY}
+      injectStyles={false}
+    >
       <KicbacPaymentForm
         amount="49.99"
         endpoint="/api/pay"
@@ -67,7 +70,7 @@ export async function charge(body: { token: string }) {
 </Steps>
 
 <Note>
-  Run your dev server and submit test card `4111 1111 1111 1111` (any future expiry and CVV). `49.99` is approved; `0.99` is declined. See [test mode](/guides/test-mode).
+  Run your dev server and submit test card `4111 1111 1111 1111` with expiry `10/29` and CVV `999`. `49.99` is approved; `0.99` is declined. See [test mode](/guides/test-mode).
 </Note>
 
 ## Next steps

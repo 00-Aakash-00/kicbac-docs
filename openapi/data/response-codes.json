@@ -37,5 +37,5 @@
     { "code": 460, "text": "Processor feature not available.", "response": 3, "outcome": "error", "error_class": "ProcessorError" },
     { "code": 461, "text": "Unsupported card type.", "response": 3, "outcome": "error", "error_class": "ProcessorError" }
   ],
-  "auth_failure_pattern": "authentication failed|invalid (security )?key|invalid username"
+  "auth_failure_pattern": "authentication failed|invalid (security )?key|invalid username|specified api key not found"
 }

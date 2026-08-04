@@ -4,9 +4,13 @@ sidebarTitle: "Save Cards"
 description: "Save a tokenized payment method to Kicbac Customer Vault, then run customer-initiated and merchant-initiated follow-up charges using stored credentials."
 ---
 
-Kicbac Customer Vault stores a tokenized payment method and returns a `customerVaultId`. Use that ID for future charges without requiring the customer to re-enter their card details. All follow-up merchant-initiated charges must reference the transaction ID from the original customer-initiated payment.
+Kicbac Customer Vault stores the payment method from an approved customer-initiated transaction and returns a vault ID. Use that vault ID for future charges without requiring the customer to re-enter payment details. Every follow-up merchant-initiated charge must also reference the original transaction ID.
 
-## Create a vault record
+## Initial customer-initiated transaction
+
+Do not reuse a `payment_token`: it is single-use. The Node SDK can vault the
+payment method during the initial sale. With Python, run the sale first and
+then create the vault record from the approved transaction ID.
 
 <CodeGroup>
 
@@ -15,45 +19,6 @@ import Kicbac from "kicbac";
 
 const kicbac = new Kicbac();
 
-const vault = await kicbac.customers.create({
-  paymentToken: "00000000-000000-000000-000000000000",
-  billing: {
-    firstName: "Test",
-    lastName: "Customer",
-    email: "customer@example.com"
-  }
-});
-
-if (!vault.ok) {
-  throw new Error(vault.message);
-}
-
-console.log(vault.customerVaultId);
-```
-
-```python Python
-from kicbac import Kicbac
-
-client = Kicbac()
-
-vault = client.customers.create(
-    payment_token="00000000-000000-000000-000000000000",
-    billing={"first_name": "Test", "last_name": "Customer", "email": "customer@example.com"},
-)
-
-if not vault.ok:
-    raise RuntimeError(vault.response_text)
-
-print(vault.customer_vault_id)
-```
-
-</CodeGroup>
-
-## Initial customer-initiated transaction
-
-The initial payment that creates the stored credential is customer initiated.
-
-```ts Node
 const initial = await kicbac.transactions.sale({
   amount: "49.99",
   paymentToken: "00000000-000000-000000-000000000000",
@@ -62,18 +27,42 @@ const initial = await kicbac.transactions.sale({
   storedCredentialIndicator: "stored"
 });
 
-if (!initial.ok) {
-  throw new Error(initial.message);
+if (!initial.ok || !initial.customerVaultId) {
+  throw new Error(initial.ok ? "Vault ID missing" : initial.message);
 }
 ```
 
-Store `initial.transactionId`; you need it for follow-up merchant-initiated charges.
+```python Python
+from kicbac import Kicbac
+
+client = Kicbac()
+
+initial = client.transactions.sale(
+    amount="49.99",
+    payment_token="00000000-000000-000000-000000000000",
+    initiated_by="customer",
+    stored_credential_indicator="stored",
+)
+
+if not initial.ok:
+    raise RuntimeError(initial.message)
+
+vault = client.customers.create(source_transaction_id=initial.transaction_id)
+if not vault.ok or not vault.customer_vault_id:
+    raise RuntimeError(vault.response_text)
+```
+
+</CodeGroup>
+
+Store the initial transaction ID together with the returned vault ID.
 
 ## Follow-up merchant-initiated charge
 
+<CodeGroup>
+
 ```ts Node
 const followUp = await kicbac.customers.charge({
-  customerVaultId: "123456789",
+  customerVaultId: initial.customerVaultId,
   amount: "9.99",
   initiatedBy: "merchant",
   storedCredentialIndicator: "used",
@@ -81,6 +70,18 @@ const followUp = await kicbac.customers.charge({
 });
 ```
 
+```python Python
+follow_up = client.customers.charge(
+    vault.customer_vault_id,
+    amount="9.99",
+    initiated_by="merchant",
+    stored_credential_indicator="used",
+    initial_transaction_id=initial.transaction_id,
+)
+```
+
+</CodeGroup>
+
 <Warning>
-  Do not invent a stored-credential transaction ID. Use the gateway transaction ID from the initial customer-initiated payment.
+  Do not reuse the payment token or invent either identifier. Use the vault ID and transaction ID returned by this linked flow.
 </Warning>

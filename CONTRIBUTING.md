@@ -5,15 +5,16 @@ Thanks for improving Kicbac's docs.
 ## Preview
 
 ```sh
-pnpm dlx mint dev
+pnpm run dev
 ```
 
 ## Checks
 
 ```sh
 pnpm run broken-links
-pnpm run openapi-check
 pnpm run validate
+pnpm run a11y
+pnpm run build
 ```
 
 ## Style

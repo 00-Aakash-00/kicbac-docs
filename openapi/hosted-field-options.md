@@ -6,7 +6,7 @@ Use Kicbac.js hosted fields for all browser-entered card and ACH data. Server ex
 
 ## Script and key
 
-- Script URL: `https://kicbac.transactiongateway.com/token/Collect.js`
+- Hosted runtime: loaded by `loadKicbac()` from `@kicbac/js`; do not add a payment script manually.
 - Public tokenization key: generated in the Kicbac dashboard under Settings → Security Keys.
 - Test card token: `00000000-000000-000000-000000000000`
 - Test ACH token: `11111111-111111-111111-111111111111`

@@ -27,7 +27,6 @@ pnpm add @kicbac/nextjs
 "use client";
 
 import { KicbacProvider } from "@kicbac/nextjs";
-import "@kicbac/react/styles.css";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return <KicbacProvider>{children}</KicbacProvider>;
@@ -53,6 +52,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 ```ts app/api/kicbac/route.ts
 import { createKicbacRouteHandler } from "@kicbac/nextjs/server";
+
+export const runtime = "nodejs";
 
 export const { POST } = createKicbacRouteHandler({
   amount: "49.99"
@@ -95,13 +96,13 @@ pnpm dev
 # then visit http://localhost:3000/checkout
 ```
 
-In test mode, fill the hosted fields with test card `4111 1111 1111 1111`, any future expiry, and any CVV, then submit. An amount of `49.99` is approved; `0.99` is declined. See [test mode](/guides/test-mode) for every test card and amount.
+In test mode, fill the hosted fields with test card `4111 1111 1111 1111`, expiry `10/29`, and CVV `999`, then submit. An amount of `49.99` is approved; `0.99` is declined. See [test mode](/guides/test-mode) for every test card and amount.
 
   </Step>
 </Steps>
 
 <Warning>
-  The charge route accepts Kicbac payment tokens only. It rejects values that look like raw card numbers, so raw card data can never reach your server.
+  The hosted-field flow sends a Kicbac payment token, not card data. The charge route also rejects token values that look like card numbers as defense in depth. That check cannot stop an arbitrary client from sending sensitive data to your endpoint, so never add raw card fields or log request bodies.
 </Warning>
 
 ## Next steps

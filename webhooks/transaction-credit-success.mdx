@@ -1,0 +1,10 @@
+---
+title: "transaction.credit.success webhook reference"
+sidebarTitle: "credit.success"
+description: "Sent when a standalone credit succeeds. Record the credit and avoid submitting it again."
+openapi: "openapi/kicbac.openapi.json webhook transaction.credit.success"
+---
+
+The `transaction.credit.success` event reports that a standalone credit was accepted successfully. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Record the credited amount and transaction reference in your ledger. Do not submit the same credit again when this event is redelivered.

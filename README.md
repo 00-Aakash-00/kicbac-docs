@@ -6,16 +6,16 @@ Mintlify documentation for the Kicbac developer platform.
 
 ```bash
 pnpm install
-cd docs
-pnpm dlx mint dev
+pnpm run dev
 ```
 
 ## Verification
 
 ```bash
-cd docs
-pnpm dlx mint broken-links
-pnpm dlx mint openapi-check openapi/kicbac.openapi.json
+pnpm run broken-links
+pnpm run validate
+pnpm run a11y
+pnpm run build
 ```
 
-The docs use the mirrored OpenAPI file under `docs/openapi/` because current Mintlify CLI releases block `../` paths from a docs project directory.
+The generated API reference uses the canonical OpenAPI file at `openapi/kicbac.openapi.json`.

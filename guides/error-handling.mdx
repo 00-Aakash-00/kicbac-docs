@@ -4,7 +4,7 @@ sidebarTitle: "Error Handling"
 description: "Learn how Kicbac SDKs separate typed declines from gateway errors and timeouts, and implement safe retry logic for payment operations."
 ---
 
-Kicbac SDKs separate customer declines from exceptional failures. A `response=2` decline returns a typed result object (`result.ok === false`) — it is not thrown. A `response=3` gateway error is thrown as a `GatewayError`. Network and parse failures are thrown as `TimeoutError`. Handle all three paths explicitly.
+Kicbac SDKs separate customer declines from exceptional failures. A `response=2` decline returns a typed result object (`result.ok === false`) — it is not thrown. Most `response=3` gateway errors are thrown as `GatewayError`; `response_code=301` is the rate-limit case and is thrown as `RateLimitError`. The Node SDK also reports connection failures, timeouts, and parse failures as `ConnectionError`, `TimeoutError`, and `ParseError`. Handle each path explicitly.
 
 Python exceptions include `APIError` for gateway/transport failures,
 `APIStatusError` for unexpected non-200 HTTP statuses, and
@@ -13,7 +13,13 @@ Python exceptions include `APIError` for gateway/transport failures,
 ## Node
 
 ```ts errors.ts
-import Kicbac, { GatewayError, TimeoutError } from "kicbac";
+import Kicbac, {
+  ConnectionError,
+  GatewayError,
+  ParseError,
+  RateLimitError,
+  TimeoutError
+} from "kicbac";
 
 const kicbac = new Kicbac();
 
@@ -30,10 +36,16 @@ try {
 
   console.log("approved", result.transactionId);
 } catch (error) {
-  if (error instanceof GatewayError) {
+  if (error instanceof RateLimitError) {
+    console.error("rate limited", error.httpStatus, error.responseCode);
+  } else if (error instanceof GatewayError) {
     console.error("gateway error", error.responseCode);
   } else if (error instanceof TimeoutError) {
-    console.error("timeout before a response was parsed");
+    console.error("request timed out", error.timeoutMs);
+  } else if (error instanceof ConnectionError) {
+    console.error("connection failed", error.sent);
+  } else if (error instanceof ParseError) {
+    console.error("gateway response could not be parsed");
   }
   throw error;
 }

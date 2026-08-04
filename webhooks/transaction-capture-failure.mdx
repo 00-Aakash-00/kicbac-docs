@@ -1,0 +1,10 @@
+---
+title: "transaction.capture.failure webhook reference"
+sidebarTitle: "capture.failure"
+description: "Sent when a capture fails. Reconcile the authorization before attempting another capture."
+openapi: "openapi/kicbac.openapi.json webhook transaction.capture.failure"
+---
+
+The `transaction.capture.failure` event reports that a capture was unsuccessful. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Do not mark the payment as captured. Record the response details and query the existing `transaction_id` or `order_id` before deciding whether another capture is appropriate.

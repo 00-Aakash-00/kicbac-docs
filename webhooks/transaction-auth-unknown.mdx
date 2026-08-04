@@ -1,0 +1,10 @@
+---
+title: "transaction.auth.unknown webhook reference"
+sidebarTitle: "auth.unknown"
+description: "Sent when a card authorization outcome cannot be confirmed. Query the transaction before capturing or authorizing again."
+openapi: "openapi/kicbac.openapi.json webhook transaction.auth.unknown"
+---
+
+The `transaction.auth.unknown` event reports an ambiguous authorization outcome. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Do not capture or authorize again automatically. Query and reconcile the existing `transaction_id` or `order_id` before deciding whether a new authorization is safe.

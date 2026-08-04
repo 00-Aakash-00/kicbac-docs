@@ -1,0 +1,10 @@
+---
+title: "transaction.refund.success webhook reference"
+sidebarTitle: "refund.success"
+description: "Sent when a refund succeeds. Record the refunded amount and avoid submitting the same refund again."
+openapi: "openapi/kicbac.openapi.json webhook transaction.refund.success"
+---
+
+The `transaction.refund.success` event reports that a refund was accepted successfully. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Update the transaction and customer-facing refund state with the amount and reference. Do not submit the same refund again when this event is redelivered.

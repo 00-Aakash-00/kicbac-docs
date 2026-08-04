@@ -1,0 +1,10 @@
+---
+title: "transaction.sale.failure webhook reference"
+sidebarTitle: "sale.failure"
+description: "Sent when a card sale fails and is not approved. Use the transaction and order references to reconcile conflicting local state."
+openapi: "openapi/kicbac.openapi.json webhook transaction.sale.failure"
+---
+
+The `transaction.sale.failure` event reports that a card sale was unsuccessful. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Do not fulfil the order. Record the response details from `event_body.action`; if your local state conflicts with this event, query the transaction using `transaction_id` or `order_id` before starting a new payment attempt.

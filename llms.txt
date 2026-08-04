@@ -9,13 +9,13 @@
 - Treat `response=2` as a typed declined result, not an exception. Treat `response=3` as a gateway or processor error.
 - Verify webhooks with `Webhook-Signature: t=<nonce>,s=<sig>` using HMAC-SHA256 over `nonce + "." + rawBody`. Compare signatures in constant time.
 - Preserve raw webhook bytes. Do not parse and reserialize before verification.
-- Use only test data from `openapi/data/test-cards.json`; never include real PANs or live keys.
+- Use only published test data from `openapi/data/*.json`; never include real PANs or live keys.
 - Authenticate servers with `security_key` only. Do not generate username/password auth or raw-card server-post examples.
 - Use the SDK method names shown in these docs and package READMEs.
 
 ## Quickstarts
 
-- [Get your API keys](/credentials.md): create sandbox credentials and find your keys.
+- [Get your API keys](/credentials.md): complete onboarding and find your test-mode keys.
 - [Next.js quickstart](/quickstarts/nextjs.md): build an App Router checkout.
 - [React quickstart](/quickstarts/react.md): render hosted payment fields.
 - [Node quickstart](/quickstarts/node.md): charge tokens server-side.
@@ -28,12 +28,14 @@
 - [Subscriptions](/guides/subscriptions.md): create plans and subscriptions.
 - [ACH](/guides/ach.md): collect and charge ACH tokens.
 - [Webhooks](/guides/webhooks.md): verify signatures and process events.
-- [Test mode](/guides/test-mode.md): use sandbox tokens and amount simulations.
+- [Test mode](/guides/test-mode.md): use test tokens and amount simulations.
 - [Error handling](/guides/error-handling.md): distinguish declines, gateway errors, and retries.
 
 ## API reference
 
-- [API overview](/api/overview.md): Payment API, Query API, and webhook contract overview.
+- [API overview](/reference/overview.md): Payment API, Query API, and webhook contract overview.
+- [Transaction API](/reference/transact.md): payment, Customer Vault, recurring billing, and invoice operations.
+- [Query API](/reference/query.md): transaction, vault, recurring billing, and invoice reports.
 
 ## SDKs
 

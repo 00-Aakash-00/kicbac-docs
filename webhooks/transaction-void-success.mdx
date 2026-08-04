@@ -1,0 +1,10 @@
+---
+title: "transaction.void.success webhook reference"
+sidebarTitle: "void.success"
+description: "Sent when a void succeeds. Mark the transaction voided and avoid repeating the operation."
+openapi: "openapi/kicbac.openapi.json webhook transaction.void.success"
+---
+
+The `transaction.void.success` event reports that a transaction was voided successfully. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Mark the transaction as voided using its `transaction_id` and retain the order reference for audit and reconciliation. Do not issue another void for a duplicate event.

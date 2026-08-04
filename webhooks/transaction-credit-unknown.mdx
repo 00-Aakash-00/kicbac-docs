@@ -1,0 +1,10 @@
+---
+title: "transaction.credit.unknown webhook reference"
+sidebarTitle: "credit.unknown"
+description: "Sent when a standalone credit outcome cannot be confirmed. Reconcile it before crediting again."
+openapi: "openapi/kicbac.openapi.json webhook transaction.credit.unknown"
+---
+
+The `transaction.credit.unknown` event reports an ambiguous standalone-credit outcome. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Do not issue another credit automatically. Query and reconcile the existing `transaction_id` or `order_id` so a successful but unconfirmed credit is not duplicated.

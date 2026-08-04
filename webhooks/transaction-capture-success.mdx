@@ -1,0 +1,10 @@
+---
+title: "transaction.capture.success webhook reference"
+sidebarTitle: "capture.success"
+description: "Sent when a capture succeeds. Update the authorized transaction without submitting another capture."
+openapi: "openapi/kicbac.openapi.json webhook transaction.capture.success"
+---
+
+The `transaction.capture.success` event reports that a previously authorized transaction was captured successfully. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Update the order and transaction with the captured amount and reference. Do not submit another capture for the same amount when this event is a duplicate delivery.

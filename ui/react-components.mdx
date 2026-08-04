@@ -16,7 +16,10 @@ import "@kicbac/react/styles.css";
 
 export function Checkout() {
   return (
-    <KicbacProvider tokenizationKey={process.env.NEXT_PUBLIC_KICBAC_TOKENIZATION_KEY}>
+    <KicbacProvider
+      tokenizationKey={process.env.NEXT_PUBLIC_KICBAC_TOKENIZATION_KEY}
+      injectStyles={false}
+    >
       <KicbacPaymentForm
         amount="49.99"
         endpoint="/api/pay"
@@ -52,7 +55,10 @@ function HeadlessFields() {
 
 export function HeadlessCheckout() {
   return (
-    <KicbacProvider tokenizationKey={process.env.NEXT_PUBLIC_KICBAC_TOKENIZATION_KEY}>
+    <KicbacProvider
+      tokenizationKey={process.env.NEXT_PUBLIC_KICBAC_TOKENIZATION_KEY}
+      injectStyles={false}
+    >
       <HeadlessFields />
     </KicbacProvider>
   );

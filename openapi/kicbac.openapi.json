@@ -33,7 +33,7 @@
         ],
         "operationId": "submitTransaction",
         "summary": "Submit a gateway operation",
-        "description": "Use this endpoint for sales, authorizations, captures, voids, refunds, Customer Vault operations, recurring plans/subscriptions, and invoices. Tokenize browser payment details with Kicbac.js and send payment_token; do not post raw PAN/CVV from merchant servers.",
+        "description": "Use this endpoint for sales, authorizations, captures, voids, refunds, Customer Vault operations, recurring plans/subscriptions, invoices, and Product Manager operations. Tokenize browser payment details with Kicbac.js and send payment_token; do not post raw PAN/CVV from merchant servers.",
         "requestBody": {
           "required": true,
           "content": {
@@ -76,7 +76,7 @@
                   }
                 },
                 "addCustomerVaultRecord": {
-                  "summary": "Create a Customer Vault record from a Collect.js test token",
+                  "summary": "Create a Customer Vault record from a Kicbac.js test token",
                   "value": {
                     "security_key": "test_security_key",
                     "customer_vault": "add_customer",
@@ -238,6 +238,516 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/TransactionSaleSuccessWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.sale.failure": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionSaleFailure",
+        "summary": "transaction.sale.failure webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionSaleFailureWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.sale.unknown": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionSaleUnknown",
+        "summary": "transaction.sale.unknown webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionSaleUnknownWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.auth.success": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionAuthSuccess",
+        "summary": "transaction.auth.success webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionAuthSuccessWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.auth.failure": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionAuthFailure",
+        "summary": "transaction.auth.failure webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionAuthFailureWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.auth.unknown": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionAuthUnknown",
+        "summary": "transaction.auth.unknown webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionAuthUnknownWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.capture.success": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionCaptureSuccess",
+        "summary": "transaction.capture.success webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionCaptureSuccessWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.capture.failure": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionCaptureFailure",
+        "summary": "transaction.capture.failure webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionCaptureFailureWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.capture.unknown": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionCaptureUnknown",
+        "summary": "transaction.capture.unknown webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionCaptureUnknownWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.void.success": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionVoidSuccess",
+        "summary": "transaction.void.success webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionVoidSuccessWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.void.failure": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionVoidFailure",
+        "summary": "transaction.void.failure webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionVoidFailureWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.void.unknown": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionVoidUnknown",
+        "summary": "transaction.void.unknown webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionVoidUnknownWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.refund.success": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionRefundSuccess",
+        "summary": "transaction.refund.success webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionRefundSuccessWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.refund.failure": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionRefundFailure",
+        "summary": "transaction.refund.failure webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionRefundFailureWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.refund.unknown": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionRefundUnknown",
+        "summary": "transaction.refund.unknown webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionRefundUnknownWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.credit.success": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionCreditSuccess",
+        "summary": "transaction.credit.success webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionCreditSuccessWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.credit.failure": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionCreditFailure",
+        "summary": "transaction.credit.failure webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionCreditFailureWebhook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return HTTP 200 only after the event is verified and accepted."
+          }
+        }
+      }
+    },
+    "transaction.credit.unknown": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "operationId": "receiveTransactionCreditUnknown",
+        "summary": "transaction.credit.unknown webhook",
+        "description": "Kicbac sends this JSON payload to your HTTPS endpoint. Verify the Webhook-Signature header before parsing or acting on the event.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WebhookSignature"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionCreditUnknownWebhook"
               }
             }
           }
@@ -749,21 +1259,19 @@
           },
           "payment": {
             "type": "string",
-            "description": "Payment rail selector.",
+            "description": "Payment rail selector for void/refund operations.",
             "enum": [
               "creditcard",
-              "check",
-              "cash",
-              ""
+              "check"
             ]
           },
           "amount": {
             "type": "string",
-            "pattern": "^\\d+(\\.\\d{2})$",
+            "pattern": "^\\d{1,8}(\\.\\d{1,2})?$",
             "examples": [
               "49.99"
             ],
-            "description": "Decimal amount in major currency units."
+            "description": "Decimal amount with 1-8 integer digits and an optional 1-2 digit decimal part."
           },
           "payment_token": {
             "type": "string",
@@ -784,12 +1292,18 @@
               "add_customer",
               "update_customer",
               "delete_customer",
-              ""
+              "add_billing",
+              "update_billing",
+              "delete_billing"
             ]
           },
           "billing_id": {
             "type": "string",
             "description": "Customer Vault billing record identifier."
+          },
+          "shipping_id": {
+            "type": "string",
+            "description": "Customer Vault shipping record identifier."
           },
           "source_transaction_id": {
             "type": "string",
@@ -805,7 +1319,15 @@
           },
           "dup_seconds": {
             "type": "string",
-            "description": "Gateway duplicate window in seconds."
+            "description": "Duplicate-checking window from 0 through 7862400 seconds.",
+            "pattern": "^\\d+$"
+          },
+          "test_mode": {
+            "type": "string",
+            "description": "Process this transaction in gateway test mode.",
+            "enum": [
+              "enabled"
+            ]
           },
           "currency": {
             "type": "string",
@@ -813,6 +1335,10 @@
             "examples": [
               "USD"
             ]
+          },
+          "processor_id": {
+            "type": "string",
+            "description": "Processor identifier for vault, subscription, or invoice routing."
           },
           "orderid": {
             "type": "string",
@@ -826,6 +1352,90 @@
             "type": "string",
             "description": "Purchase order number."
           },
+          "tax": {
+            "type": "string",
+            "pattern": "^\\d{1,8}(\\.\\d{1,2})?$",
+            "examples": [
+              "49.99"
+            ],
+            "description": "Decimal amount with 1-8 integer digits and an optional 1-2 digit decimal part."
+          },
+          "shipping": {
+            "type": "string",
+            "pattern": "^\\d{1,8}(\\.\\d{1,2})?$",
+            "examples": [
+              "49.99"
+            ],
+            "description": "Decimal amount with 1-8 integer digits and an optional 1-2 digit decimal part."
+          },
+          "ipaddress": {
+            "type": "string",
+            "description": "Cardholder IP address for fraud screening."
+          },
+          "partial_payments": {
+            "type": "string",
+            "description": "Split-tender behavior for sale or authorization.",
+            "enum": [
+              "settle_partial",
+              "payment_in_full"
+            ]
+          },
+          "partial_payment_id": {
+            "type": "string",
+            "description": "Partial-payment identifier from the original transaction."
+          },
+          "tracking_number": {
+            "type": "string",
+            "description": "Shipment tracking number for capture or transaction update."
+          },
+          "shipping_carrier": {
+            "type": "string",
+            "description": "Shipment carrier for capture or transaction update.",
+            "enum": [
+              "ups",
+              "fedex",
+              "dhl",
+              "usps"
+            ]
+          },
+          "void_reason": {
+            "type": "string",
+            "description": "Reason for voiding an EMV transaction.",
+            "enum": [
+              "fraud",
+              "user_cancel",
+              "icc_rejected",
+              "icc_card_removed",
+              "icc_no_confirmation",
+              "pos_timeout"
+            ]
+          },
+          "shipping_date": {
+            "type": "string",
+            "description": "Shipping date in YYYYMMDD format.",
+            "pattern": "^\\d{8}$"
+          },
+          "shipping_postal": {
+            "type": "string",
+            "description": "Destination postal code for a transaction update."
+          },
+          "ship_from_postal": {
+            "type": "string",
+            "description": "Origin postal code for a transaction update."
+          },
+          "order_date": {
+            "type": "string",
+            "description": "Order date in YYYYMMDD format.",
+            "pattern": "^\\d{8}$"
+          },
+          "customer_receipt": {
+            "type": "string",
+            "description": "Whether the gateway should send a customer receipt.",
+            "enum": [
+              "true",
+              "false"
+            ]
+          },
           "first_name": {
             "type": "string",
             "description": "Billing first name."
@@ -833,6 +1443,10 @@
           "last_name": {
             "type": "string",
             "description": "Billing last name."
+          },
+          "company": {
+            "type": "string",
+            "description": "Billing company."
           },
           "address1": {
             "type": "string",
@@ -866,6 +1480,10 @@
             "type": "string",
             "description": "Billing phone."
           },
+          "fax": {
+            "type": "string",
+            "description": "Billing fax number."
+          },
           "shipping_firstname": {
             "type": "string",
             "description": "Shipping first name."
@@ -873,6 +1491,10 @@
           "shipping_lastname": {
             "type": "string",
             "description": "Shipping last name."
+          },
+          "shipping_company": {
+            "type": "string",
+            "description": "Shipping company."
           },
           "shipping_address1": {
             "type": "string",
@@ -898,50 +1520,90 @@
             "type": "string",
             "description": "Shipping country."
           },
-          "checkaba": {
+          "shipping_email": {
             "type": "string",
-            "description": "ACH routing number. Prefer Kicbac.js ACH tokens when collecting in browser."
+            "description": "Shipping email."
           },
-          "checkaccount": {
+          "shipping_phone": {
             "type": "string",
-            "description": "ACH account number. Prefer Kicbac.js ACH tokens when collecting in browser."
+            "description": "Shipping phone for Customer Vault records."
           },
-          "checkname": {
+          "shipping_fax": {
             "type": "string",
-            "description": "ACH account holder name."
+            "description": "Shipping fax for Customer Vault records."
           },
           "account_holder_type": {
             "type": "string",
-            "description": "ACH account holder type.",
+            "description": "ACH account holder classification.",
             "enum": [
-              "personal",
               "business",
-              ""
+              "personal"
             ]
           },
           "account_type": {
             "type": "string",
-            "description": "ACH account type.",
+            "description": "ACH account classification.",
             "enum": [
               "checking",
-              "savings",
-              ""
+              "savings"
             ]
           },
           "sec_code": {
             "type": "string",
-            "description": "ACH SEC code.",
-            "examples": [
-              "WEB"
+            "description": "ACH SEC classification.",
+            "enum": [
+              "PPD",
+              "WEB",
+              "TEL",
+              "CCD"
             ]
+          },
+          "descriptor": {
+            "type": "string",
+            "description": "Dynamic payment descriptor name."
+          },
+          "descriptor_phone": {
+            "type": "string",
+            "description": "Dynamic descriptor phone."
+          },
+          "descriptor_address": {
+            "type": "string",
+            "description": "Dynamic descriptor street address."
+          },
+          "descriptor_city": {
+            "type": "string",
+            "description": "Dynamic descriptor city."
+          },
+          "descriptor_state": {
+            "type": "string",
+            "description": "Dynamic descriptor state."
+          },
+          "descriptor_postal": {
+            "type": "string",
+            "description": "Dynamic descriptor postal code."
+          },
+          "descriptor_country": {
+            "type": "string",
+            "description": "Dynamic descriptor country."
+          },
+          "descriptor_mcc": {
+            "type": "string",
+            "description": "Dynamic descriptor merchant category code."
+          },
+          "descriptor_merchant_id": {
+            "type": "string",
+            "description": "Dynamic descriptor merchant identifier."
+          },
+          "descriptor_url": {
+            "type": "string",
+            "description": "Dynamic descriptor URL."
           },
           "initiated_by": {
             "type": "string",
             "description": "Stored credential initiator.",
             "enum": [
               "customer",
-              "merchant",
-              ""
+              "merchant"
             ]
           },
           "stored_credential_indicator": {
@@ -949,8 +1611,7 @@
             "description": "Stored credential indicator.",
             "enum": [
               "stored",
-              "used",
-              ""
+              "used"
             ]
           },
           "initial_transaction_id": {
@@ -959,7 +1620,53 @@
           },
           "billing_method": {
             "type": "string",
-            "description": "Billing method for credential-on-file recurring/standing instruction flows."
+            "description": "Billing method for credential-on-file recurring/standing instruction flows.",
+            "enum": [
+              "initial_recurring",
+              "recurring",
+              "installment"
+            ]
+          },
+          "billing_number": {
+            "type": "string",
+            "description": "Current installment number, from 0 through 99.",
+            "pattern": "^([0-9]|[1-9]\\d)$"
+          },
+          "billing_total": {
+            "type": "string",
+            "pattern": "^\\d{1,8}(\\.\\d{1,2})?$",
+            "examples": [
+              "49.99"
+            ],
+            "description": "Decimal amount with 1-8 integer digits and an optional 1-2 digit decimal part."
+          },
+          "cardholder_auth": {
+            "type": "string",
+            "description": "3-D Secure authentication outcome.",
+            "enum": [
+              "verified",
+              "attempted"
+            ]
+          },
+          "eci": {
+            "type": "string",
+            "description": "3-D Secure electronic commerce indicator."
+          },
+          "three_ds_version": {
+            "type": "string",
+            "description": "3-D Secure protocol version."
+          },
+          "directory_server_id": {
+            "type": "string",
+            "description": "3-D Secure directory server transaction identifier."
+          },
+          "acu_enabled": {
+            "type": "string",
+            "description": "Whether Automatic Card Updater is enabled for the record.",
+            "enum": [
+              "true",
+              "false"
+            ]
           },
           "recurring": {
             "type": "string",
@@ -969,8 +1676,7 @@
               "edit_plan",
               "add_subscription",
               "update_subscription",
-              "delete_subscription",
-              ""
+              "delete_subscription"
             ]
           },
           "plan_id": {
@@ -985,29 +1691,50 @@
             "type": "string",
             "description": "Recurring plan name."
           },
-          "payments": {
+          "plan_amount": {
             "type": "string",
-            "description": "Number of recurring payments."
+            "pattern": "^\\d{1,8}(\\.\\d{1,2})?$",
+            "examples": [
+              "49.99"
+            ],
+            "description": "Decimal amount with 1-8 integer digits and an optional 1-2 digit decimal part."
+          },
+          "plan_payments": {
+            "type": "string",
+            "description": "Number of recurring payments; 0 means until canceled.",
+            "pattern": "^\\d+$"
           },
           "day_frequency": {
             "type": "string",
-            "description": "Days between recurring charges."
+            "description": "Positive integer days between recurring charges.",
+            "pattern": "^[1-9]\\d*$"
           },
           "month_frequency": {
             "type": "string",
-            "description": "Months between recurring charges."
+            "description": "Months between recurring charges, from 1 through 24.",
+            "pattern": "^([1-9]|1\\d|2[0-4])$"
           },
           "day_of_month": {
             "type": "string",
-            "description": "Day of month for recurring charges."
+            "description": "Day of month for recurring charges, from 1 through 31.",
+            "pattern": "^([1-9]|[12]\\d|3[01])$"
           },
           "start_date": {
             "type": "string",
-            "description": "Subscription start date."
+            "description": "Subscription start date in YYYYMMDD format.",
+            "pattern": "^\\d{8}$"
           },
           "subscription_id": {
             "type": "string",
             "description": "Subscription ID."
+          },
+          "paused_subscription": {
+            "type": "string",
+            "description": "Whether the recurring subscription is paused.",
+            "enum": [
+              "true",
+              "false"
+            ]
           },
           "invoicing": {
             "type": "string",
@@ -1016,8 +1743,7 @@
               "add_invoice",
               "update_invoice",
               "send_invoice",
-              "close_invoice",
-              ""
+              "close_invoice"
             ]
           },
           "invoice_id": {
@@ -1026,13 +1752,346 @@
           },
           "payment_terms": {
             "type": "string",
-            "description": "Invoice payment terms."
+            "description": "Invoice terms: \"upon_receipt\" or 0 through 999 days.",
+            "pattern": "^(upon_receipt|0|[1-9]\\d{0,2})$"
           },
           "payment_methods_allowed": {
             "type": "string",
-            "description": "Comma-separated invoice payment methods."
+            "description": "Comma-separated invoice payment methods: cc, ck, or cs."
           },
-          "customer_receipt": {
+          "customer_id": {
+            "type": "string",
+            "description": "Merchant customer identifier for an invoice."
+          },
+          "customer_tax_id": {
+            "type": "string",
+            "description": "Customer tax identifier for an invoice."
+          },
+          "website": {
+            "type": "string",
+            "description": "Merchant website associated with an invoice."
+          },
+          "products": {
+            "type": "string",
+            "description": "Product Manager operation.",
+            "enum": [
+              "add_product",
+              "update_product",
+              "delete_product"
+            ]
+          },
+          "product_id": {
+            "type": "string",
+            "description": "Product Manager identifier."
+          },
+          "product_sku": {
+            "type": "string",
+            "description": "Unique product SKU."
+          },
+          "product_description": {
+            "type": "string",
+            "description": "User-facing product name."
+          },
+          "product_cost": {
+            "type": "string",
+            "pattern": "^\\d{1,8}(\\.\\d{1,2})?$",
+            "examples": [
+              "49.99"
+            ],
+            "description": "Decimal amount with 1-8 integer digits and an optional 1-2 digit decimal part."
+          },
+          "product_currency": {
+            "type": "string",
+            "description": "Product price currency, such as USD."
+          },
+          "product_commodity_code": {
+            "type": "string",
+            "description": "Product commodity code."
+          },
+          "product_unit_of_measure": {
+            "type": "string",
+            "description": "Product unit-of-measure code."
+          },
+          "product_tax_amount": {
+            "type": "string",
+            "pattern": "^\\d{1,8}(\\.\\d{1,2})?$",
+            "examples": [
+              "49.99"
+            ],
+            "description": "Decimal amount with 1-8 integer digits and an optional 1-2 digit decimal part."
+          },
+          "product_discount_amount": {
+            "type": "string",
+            "pattern": "^\\d{1,8}(\\.\\d{1,2})?$",
+            "examples": [
+              "49.99"
+            ],
+            "description": "Decimal amount with 1-8 integer digits and an optional 1-2 digit decimal part."
+          },
+          "product_image_data": {
+            "type": "string",
+            "description": "Base64-encoded JPG, PNG, or GIF image data."
+          },
+          "product_image_name": {
+            "type": "string",
+            "description": "Image file name used with product_image_data."
+          },
+          "merchant_defined_field_1": {
+            "type": "string",
+            "description": "Merchant-defined field 1."
+          },
+          "merchant_defined_field_2": {
+            "type": "string",
+            "description": "Merchant-defined field 2."
+          },
+          "merchant_defined_field_3": {
+            "type": "string",
+            "description": "Merchant-defined field 3."
+          },
+          "merchant_defined_field_4": {
+            "type": "string",
+            "description": "Merchant-defined field 4."
+          },
+          "merchant_defined_field_5": {
+            "type": "string",
+            "description": "Merchant-defined field 5."
+          },
+          "merchant_defined_field_6": {
+            "type": "string",
+            "description": "Merchant-defined field 6."
+          },
+          "merchant_defined_field_7": {
+            "type": "string",
+            "description": "Merchant-defined field 7."
+          },
+          "merchant_defined_field_8": {
+            "type": "string",
+            "description": "Merchant-defined field 8."
+          },
+          "merchant_defined_field_9": {
+            "type": "string",
+            "description": "Merchant-defined field 9."
+          },
+          "merchant_defined_field_10": {
+            "type": "string",
+            "description": "Merchant-defined field 10."
+          },
+          "merchant_defined_field_11": {
+            "type": "string",
+            "description": "Merchant-defined field 11."
+          },
+          "merchant_defined_field_12": {
+            "type": "string",
+            "description": "Merchant-defined field 12."
+          },
+          "merchant_defined_field_13": {
+            "type": "string",
+            "description": "Merchant-defined field 13."
+          },
+          "merchant_defined_field_14": {
+            "type": "string",
+            "description": "Merchant-defined field 14."
+          },
+          "merchant_defined_field_15": {
+            "type": "string",
+            "description": "Merchant-defined field 15."
+          },
+          "merchant_defined_field_16": {
+            "type": "string",
+            "description": "Merchant-defined field 16."
+          },
+          "merchant_defined_field_17": {
+            "type": "string",
+            "description": "Merchant-defined field 17."
+          },
+          "merchant_defined_field_18": {
+            "type": "string",
+            "description": "Merchant-defined field 18."
+          },
+          "merchant_defined_field_19": {
+            "type": "string",
+            "description": "Merchant-defined field 19."
+          },
+          "merchant_defined_field_20": {
+            "type": "string",
+            "description": "Merchant-defined field 20."
+          }
+        }
+      },
+      "QueryRequest": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        },
+        "required": [
+          "security_key"
+        ],
+        "properties": {
+          "security_key": {
+            "type": "string",
+            "description": "Private gateway security key."
+          },
+          "condition": {
+            "type": "string",
+            "description": "Comma-separated transaction condition filters."
+          },
+          "transaction_type": {
+            "type": "string",
+            "description": "Transaction payment type filter.",
+            "enum": [
+              "cc",
+              "ck"
+            ]
+          },
+          "action_type": {
+            "type": "string",
+            "description": "Comma-separated transaction action filters."
+          },
+          "source": {
+            "type": "string",
+            "description": "Comma-separated transaction source filters."
+          },
+          "transaction_id": {
+            "type": "string",
+            "description": "Gateway transaction ID or comma-separated IDs."
+          },
+          "subscription_id": {
+            "type": "string",
+            "description": "Recurring subscription ID or comma-separated IDs."
+          },
+          "partial_payment_id": {
+            "type": "string",
+            "description": "Partial payment ID."
+          },
+          "order_id": {
+            "type": "string",
+            "description": "Merchant order ID."
+          },
+          "first_name": {
+            "type": "string",
+            "description": "Customer first name."
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Customer last name."
+          },
+          "address1": {
+            "type": "string",
+            "description": "Customer address line 1."
+          },
+          "city": {
+            "type": "string",
+            "description": "Customer city."
+          },
+          "state": {
+            "type": "string",
+            "description": "Customer state."
+          },
+          "zip": {
+            "type": "string",
+            "description": "Customer ZIP/postal code."
+          },
+          "phone": {
+            "type": "string",
+            "description": "Customer phone."
+          },
+          "fax": {
+            "type": "string",
+            "description": "Customer fax number."
+          },
+          "email": {
+            "type": "string",
+            "description": "Customer email."
+          },
+          "order_description": {
+            "type": "string",
+            "description": "Order description filter."
+          },
+          "authorization_code": {
+            "type": "string",
+            "description": "Transaction authorization code filter."
+          },
+          "drivers_license_number": {
+            "type": "string",
+            "description": "Driver license number filter."
+          },
+          "drivers_license_dob": {
+            "type": "string",
+            "description": "Driver license date-of-birth filter."
+          },
+          "drivers_license_state": {
+            "type": "string",
+            "description": "Driver license state filter."
+          },
+          "mobile_device_license": {
+            "type": "string",
+            "description": "Mobile device license ID, comma-separated IDs, or any_mobile. Mutually exclusive with mobile_device_nickname."
+          },
+          "mobile_device_nickname": {
+            "type": "string",
+            "description": "Mobile device nickname. Mutually exclusive with mobile_device_license."
+          },
+          "customer_vault_id": {
+            "type": "string",
+            "description": "Customer Vault identifier filter."
+          },
+          "date_search": {
+            "type": "string",
+            "description": "Comma-separated Customer Vault date fields: \"created\" or \"updated\"."
+          },
+          "invoice_id": {
+            "type": "string",
+            "description": "Invoice identifier filter."
+          },
+          "invoice_status": {
+            "type": "string",
+            "description": "Comma-separated invoice status filters: open, paid, closed, or past_due."
+          },
+          "start_date": {
+            "type": "string",
+            "description": "Modified-on-or-after timestamp in YYYYMMDDhhmmss format.",
+            "pattern": "^\\d{14}$"
+          },
+          "end_date": {
+            "type": "string",
+            "description": "Modified-on-or-before timestamp in YYYYMMDDhhmmss format.",
+            "pattern": "^\\d{14}$"
+          },
+          "result_order": {
+            "type": "string",
+            "description": "Result ordering.",
+            "enum": [
+              "standard",
+              "reverse"
+            ]
+          },
+          "report_type": {
+            "type": "string",
+            "description": "Special report type.",
+            "enum": [
+              "receipt",
+              "customer_vault",
+              "recurring",
+              "recurring_plans",
+              "invoicing",
+              "gateway_processors",
+              "account_updater",
+              "test_mode_status",
+              "profile",
+              ""
+            ]
+          },
+          "result_limit": {
+            "type": "string",
+            "description": "Maximum results per page.",
+            "pattern": "^[1-9]\\d*$"
+          },
+          "page_number": {
+            "type": "string",
+            "description": "Zero-based page number for paginated reports.",
+            "pattern": "^\\d+$"
+          },
+          "processor_details": {
             "type": "string",
             "enum": [
               "true",
@@ -1053,115 +2112,74 @@
           "merchant_defined_field_3": {
             "type": "string",
             "description": "Merchant-defined field 3."
-          }
-        }
-      },
-      "QueryRequest": {
-        "type": "object",
-        "additionalProperties": {
-          "type": "string"
-        },
-        "required": [
-          "security_key"
-        ],
-        "properties": {
-          "security_key": {
-            "type": "string",
-            "description": "Private gateway security key."
           },
-          "condition": {
+          "merchant_defined_field_4": {
             "type": "string",
-            "description": "Transaction condition filter."
+            "description": "Merchant-defined field 4."
           },
-          "transaction_type": {
+          "merchant_defined_field_5": {
             "type": "string",
-            "description": "Transaction type filter."
+            "description": "Merchant-defined field 5."
           },
-          "action_type": {
+          "merchant_defined_field_6": {
             "type": "string",
-            "description": "Action type filter."
+            "description": "Merchant-defined field 6."
           },
-          "source": {
+          "merchant_defined_field_7": {
             "type": "string",
-            "description": "Transaction source filter."
+            "description": "Merchant-defined field 7."
           },
-          "transaction_id": {
+          "merchant_defined_field_8": {
             "type": "string",
-            "description": "Gateway transaction ID."
+            "description": "Merchant-defined field 8."
           },
-          "subscription_id": {
+          "merchant_defined_field_9": {
             "type": "string",
-            "description": "Recurring subscription ID."
+            "description": "Merchant-defined field 9."
           },
-          "invoice_id": {
+          "merchant_defined_field_10": {
             "type": "string",
-            "description": "Invoice ID."
+            "description": "Merchant-defined field 10."
           },
-          "partial_payment_id": {
+          "merchant_defined_field_11": {
             "type": "string",
-            "description": "Partial payment ID."
+            "description": "Merchant-defined field 11."
           },
-          "order_id": {
+          "merchant_defined_field_12": {
             "type": "string",
-            "description": "Merchant order ID."
+            "description": "Merchant-defined field 12."
           },
-          "first_name": {
+          "merchant_defined_field_13": {
             "type": "string",
-            "description": "Customer first name."
+            "description": "Merchant-defined field 13."
           },
-          "last_name": {
+          "merchant_defined_field_14": {
             "type": "string",
-            "description": "Customer last name."
+            "description": "Merchant-defined field 14."
           },
-          "email": {
+          "merchant_defined_field_15": {
             "type": "string",
-            "description": "Customer email."
+            "description": "Merchant-defined field 15."
           },
-          "cc_number": {
+          "merchant_defined_field_16": {
             "type": "string",
-            "description": "Card number filter as allowed by the gateway."
+            "description": "Merchant-defined field 16."
           },
-          "start_date": {
+          "merchant_defined_field_17": {
             "type": "string",
-            "description": "Start timestamp/date filter."
+            "description": "Merchant-defined field 17."
           },
-          "end_date": {
+          "merchant_defined_field_18": {
             "type": "string",
-            "description": "End timestamp/date filter."
+            "description": "Merchant-defined field 18."
           },
-          "report_type": {
+          "merchant_defined_field_19": {
             "type": "string",
-            "description": "Special report type.",
-            "enum": [
-              "receipt",
-              "customer_vault",
-              "recurring",
-              "recurring_plans",
-              "invoicing",
-              "gateway_processors",
-              "account_updater",
-              "test_mode_status",
-              "profile",
-              ""
-            ]
+            "description": "Merchant-defined field 19."
           },
-          "result_limit": {
+          "merchant_defined_field_20": {
             "type": "string",
-            "description": "Maximum results per page."
-          },
-          "page_number": {
-            "type": "string",
-            "description": "Page number for paginated reports."
-          },
-          "processor_details": {
-            "type": "string",
-            "enum": [
-              "true",
-              "false",
-              "1",
-              "0"
-            ],
-            "description": "Gateway boolean form value."
+            "description": "Merchant-defined field 20."
           }
         }
       },
@@ -1223,6 +2241,10 @@
           "subscription_id": {
             "type": "string",
             "description": "Subscription ID when created."
+          },
+          "product_id": {
+            "type": "string",
+            "description": "Product Manager ID when created or updated."
           },
           "partial_payment_id": {
             "type": "string",
@@ -2366,7 +3388,54 @@
           },
           "day_frequency": {
             "type": [
-              "string",
+              "integer",
+              "null"
+            ],
+            "description": "Days between charges when using day-frequency scheduling."
+          },
+          "month_frequency": {
+            "type": "integer",
+            "description": "Months between charges when using monthly scheduling."
+          },
+          "day_of_month": {
+            "type": "integer",
+            "description": "Day of month for monthly scheduling."
+          }
+        }
+      },
+      "RecurringSubscriptionPlan": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "id",
+          "name",
+          "amount",
+          "payments"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Plan identifier."
+          },
+          "name": {
+            "type": "string",
+            "description": "Plan name."
+          },
+          "amount": {
+            "type": "string",
+            "pattern": "^\\d+(\\.\\d{2})$",
+            "examples": [
+              "49.99"
+            ],
+            "description": "Decimal amount in major currency units."
+          },
+          "payments": {
+            "type": "integer",
+            "description": "Number of payments."
+          },
+          "day_frequency": {
+            "type": [
+              "integer",
               "null"
             ],
             "description": "Days between charges when using day-frequency scheduling."
@@ -2485,87 +3554,7 @@
             "description": "Website URL."
           },
           "plan": {
-            "type": "object",
-            "additionalProperties": true,
-            "required": [
-              "merchant",
-              "id",
-              "name",
-              "amount",
-              "payments"
-            ],
-            "properties": {
-              "merchant": {
-                "type": "object",
-                "additionalProperties": true,
-                "required": [
-                  "id",
-                  "name"
-                ],
-                "properties": {
-                  "id": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "integer"
-                      }
-                    ],
-                    "description": "Gateway merchant identifier."
-                  },
-                  "name": {
-                    "type": "string",
-                    "description": "Merchant display name."
-                  }
-                }
-              },
-              "features": {
-                "type": "object",
-                "additionalProperties": true,
-                "properties": {
-                  "is_test_mode": {
-                    "type": "boolean",
-                    "description": "True when the merchant account is running in test mode."
-                  }
-                }
-              },
-              "id": {
-                "type": "string",
-                "description": "Plan identifier."
-              },
-              "name": {
-                "type": "string",
-                "description": "Plan name."
-              },
-              "amount": {
-                "type": "string",
-                "pattern": "^\\d+(\\.\\d{2})$",
-                "examples": [
-                  "49.99"
-                ],
-                "description": "Decimal amount in major currency units."
-              },
-              "payments": {
-                "type": "integer",
-                "description": "Number of payments."
-              },
-              "day_frequency": {
-                "type": [
-                  "string",
-                  "null"
-                ],
-                "description": "Days between charges when using day-frequency scheduling."
-              },
-              "month_frequency": {
-                "type": "integer",
-                "description": "Months between charges when using monthly scheduling."
-              },
-              "day_of_month": {
-                "type": "integer",
-                "description": "Day of month for monthly scheduling."
-              }
-            }
+            "$ref": "#/components/schemas/RecurringSubscriptionPlan"
           },
           "billing_address": {
             "type": "object",
@@ -3438,6 +4427,397 @@
               "event_type": {
                 "type": "string",
                 "const": "transaction.sale.success"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionSaleFailureWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.sale.failure"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionSaleUnknownWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.sale.unknown"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionAuthSuccessWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.auth.success"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionAuthFailureWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.auth.failure"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionAuthUnknownWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.auth.unknown"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionCaptureSuccessWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.capture.success"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionCaptureFailureWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.capture.failure"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionCaptureUnknownWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.capture.unknown"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionVoidSuccessWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.void.success"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionVoidFailureWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.void.failure"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionVoidUnknownWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.void.unknown"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionRefundSuccessWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.refund.success"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionRefundFailureWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.refund.failure"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionRefundUnknownWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.refund.unknown"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionCreditSuccessWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.credit.success"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionCreditFailureWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.credit.failure"
+              },
+              "event_body": {
+                "$ref": "#/components/schemas/TransactionWebhookBody"
+              }
+            }
+          }
+        ]
+      },
+      "TransactionCreditUnknownWebhook": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/WebhookEnvelope"
+          },
+          {
+            "type": "object",
+            "required": [
+              "event_type",
+              "event_body"
+            ],
+            "properties": {
+              "event_type": {
+                "type": "string",
+                "const": "transaction.credit.unknown"
               },
               "event_body": {
                 "$ref": "#/components/schemas/TransactionWebhookBody"

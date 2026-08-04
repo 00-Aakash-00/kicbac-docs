@@ -23,10 +23,11 @@ const kicbac = new Kicbac(); // reads KICBAC_SECURITY_KEY
 ## Transactions
 
 ```ts
+const orderId = `order_${crypto.randomUUID()}`;
 const result = await kicbac.transactions.sale({
   amount: "49.99",
   paymentToken: "00000000-000000-000000-000000000000",
-  orderId: "order_1001"
+  orderId
 });
 
 if (result.ok) {
@@ -36,25 +37,69 @@ if (result.ok) {
 }
 ```
 
+Generate and persist `orderId` on the server before the call. Use a fresh ID
+and payment token for a new attempt after a definitive decline. After an
+ambiguous outcome, query and reconcile the existing ID instead of resubmitting
+the write. An order ID does not make the gateway call idempotent.
+
 Other transaction methods: `sale`, `authorize`, `capture`, `void`, `refund`, `credit`, `validate`, `update`, `offline`, and `completePartialPayment`.
+
+`capture` requires an amount. Set `payment: "check"` on an ACH void, refund,
+or update. `completePartialPayment` fixes `partial_payments` to
+`payment_in_full` for the referenced split-tender chain.
 
 ## Customer Vault
 
 ```ts
-const vault = await kicbac.customers.create({
-  paymentToken: "00000000-000000-000000-000000000000"
+const initial = await kicbac.transactions.sale({
+  amount: "49.99",
+  paymentToken: "00000000-000000-000000-000000000000",
+  vault: "add",
+  initiatedBy: "customer",
+  storedCredentialIndicator: "stored"
 });
 
-if (!vault.ok) {
-  throw new Error(vault.message);
+if (!initial.ok || !initial.customerVaultId) {
+  throw new Error(initial.ok ? "Vault ID missing" : initial.message);
 }
 
 await kicbac.customers.charge({
-  customerVaultId: vault.customerVaultId!,
+  customerVaultId: initial.customerVaultId,
   amount: "9.99",
   initiatedBy: "merchant",
   storedCredentialIndicator: "used",
-  initialTransactionId: "9876543210"
+  initialTransactionId: initial.transactionId
+});
+```
+
+## Inline subscription plan
+
+Pass exactly one saved `planId` or an inline `plan`. Inline plans accept a day
+frequency or a month frequency paired with a day of month.
+
+```ts
+const subscription = await kicbac.subscriptions.create({
+  plan: { amount: "29.00", payments: 12, dayFrequency: 30 },
+  paymentToken: "00000000-000000-000000-000000000000"
+});
+```
+
+## Available resources
+
+The client also exposes `plans` for create/update, `subscriptions` for
+create/update/delete, `invoices` for create/update/send/close, `products` for
+create/update/delete, and `query` for transaction, customer, subscription,
+plan, and invoice lookups. Use
+`query.raw()` for a read-only report type the SDK does not model.
+
+## Product Manager
+
+```ts
+const product = await kicbac.products.create({
+  sku: "SKU-100",
+  description: "Example product",
+  cost: "19.99",
+  currency: "USD"
 });
 ```
 

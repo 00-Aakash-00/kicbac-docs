@@ -1,0 +1,10 @@
+---
+title: "transaction.refund.unknown webhook reference"
+sidebarTitle: "refund.unknown"
+description: "Sent when a refund outcome cannot be confirmed. Reconcile the transaction before refunding again."
+openapi: "openapi/kicbac.openapi.json webhook transaction.refund.unknown"
+---
+
+The `transaction.refund.unknown` event reports an ambiguous refund outcome. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Do not refund again automatically. Query and reconcile the existing `transaction_id` or `order_id` so a successful but unconfirmed refund is not duplicated.

@@ -1,0 +1,10 @@
+---
+title: "transaction.auth.failure webhook reference"
+sidebarTitle: "auth.failure"
+description: "Sent when a card authorization fails. Do not capture unless a query later confirms an approved authorization."
+openapi: "openapi/kicbac.openapi.json webhook transaction.auth.failure"
+---
+
+The `transaction.auth.failure` event reports that a card authorization was unsuccessful. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Do not capture against the failed authorization. Record the response details from `event_body.action`; if local state conflicts, query `transaction_id` or `order_id` before taking another action.

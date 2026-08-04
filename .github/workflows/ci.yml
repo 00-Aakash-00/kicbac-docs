@@ -22,7 +22,9 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm run broken-links
-      - run: pnpm run openapi-check
+      - run: pnpm run validate
+      - run: pnpm run a11y
+      - run: pnpm run build
 
   fixtures-sync:
     name: openapi/ subset matches kicbac-js
@@ -33,4 +35,4 @@ jobs:
         with:
           repository: 00-Aakash-00/kicbac-js
           path: upstream-kicbac-js
-      - run: for f in data/amount-simulation.json data/avs-codes.json data/cvv-codes.json data/response-codes.json data/test-cards.json kicbac.openapi.json; do diff "openapi/$f" "upstream-kicbac-js/openapi/$f" || exit 1; done
+      - run: for f in data/amount-simulation.json data/avs-codes.json data/cvv-codes.json data/response-codes.json data/test-cards.json hosted-field-options.md kicbac.openapi.json webhooks/vectors.json; do diff "openapi/$f" "upstream-kicbac-js/openapi/$f" || exit 1; done

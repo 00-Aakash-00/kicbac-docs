@@ -25,11 +25,12 @@ pnpm add kicbac
 import Kicbac from "kicbac";
 
 const kicbac = new Kicbac();
+const orderId = `order_${crypto.randomUUID()}`;
 
 const result = await kicbac.transactions.sale({
   amount: "49.99",
   paymentToken: "00000000-000000-000000-000000000000",
-  orderId: "order_1001"
+  orderId
 });
 
 if (result.ok) {
@@ -38,6 +39,11 @@ if (result.ok) {
   console.log("declined", result.code, result.message);
 }
 ```
+
+Persist the server-generated `orderId` before the call. A new attempt after a
+definitive decline needs a fresh ID and payment token. If the outcome is
+ambiguous, do not resubmit; query and reconcile the existing ID first. The ID
+is a correlation key, not an idempotency guarantee.
 
   </Step>
   <Step title="Catch gateway errors">
@@ -92,6 +98,6 @@ pnpm tsx charge.ts
     Vault a card and charge it again later.
   </Card>
   <Card title="Node SDK reference" icon="book" href="/sdk/node">
-    Every resource and method.
+    Common workflows, resource namespaces, and webhook verification.
   </Card>
 </CardGroup>

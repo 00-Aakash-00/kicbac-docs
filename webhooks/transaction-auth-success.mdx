@@ -1,0 +1,10 @@
+---
+title: "transaction.auth.success webhook reference"
+sidebarTitle: "auth.success"
+description: "Sent when a card authorization succeeds. Store the transaction reference for a later capture or void."
+openapi: "openapi/kicbac.openapi.json webhook transaction.auth.success"
+---
+
+The `transaction.auth.success` event reports that a card authorization was approved. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Record the authorization and `transaction_id` before any later capture or void. An authorization is not a settled payment, so keep fulfilment aligned with your capture policy.

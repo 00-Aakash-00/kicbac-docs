@@ -1,0 +1,10 @@
+---
+title: "transaction.credit.failure webhook reference"
+sidebarTitle: "credit.failure"
+description: "Sent when a standalone credit fails. Reconcile its reference before creating another credit."
+openapi: "openapi/kicbac.openapi.json webhook transaction.credit.failure"
+---
+
+The `transaction.credit.failure` event reports that a standalone credit was unsuccessful. Verify the signature over the raw request body before parsing, then deduplicate deliveries by `event_id`.
+
+Do not post the amount as credited. Record the response details and query the existing `transaction_id` or `order_id` before deciding whether to create another credit.

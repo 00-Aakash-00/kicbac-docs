@@ -23,14 +23,17 @@ python -m pip install kicbac
   <Step title="Charge a payment token">
 
 ```python charge.py
+from uuid import uuid4
+
 from kicbac import Kicbac
 
 client = Kicbac()
+order_id = f"order_{uuid4().hex}"
 
 result = client.transactions.sale(
     amount="49.99",
     payment_token="00000000-000000-000000-000000000000",
-    order_id="order_1001",
+    order_id=order_id,
 )
 
 if result.ok:
@@ -38,6 +41,11 @@ if result.ok:
 else:
     print("declined", result.response_code, result.message)
 ```
+
+Persist the server-generated `order_id` before the call. A new attempt after a
+definitive decline needs a fresh ID and payment token. If the outcome is
+ambiguous, do not resubmit; query and reconcile the existing ID first. The ID
+is a correlation key, not an idempotency guarantee.
 
   </Step>
   <Step title="Use the async client">
@@ -84,6 +92,6 @@ python charge.py
     Confirm settlement and disputes from signed events.
   </Card>
   <Card title="Python SDK reference" icon="book" href="/sdk/python">
-    Sync and async clients, every resource and method.
+    Sync and async clients, resource namespaces, and webhook verification.
   </Card>
 </CardGroup>
